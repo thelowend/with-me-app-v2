@@ -1,6 +1,6 @@
 import React from 'react'
 import { ActivityIndicator } from 'react-native'
-import { Container, Text, View, Content } from 'native-base'
+import { Container, View, Content, Tabs, Tab, TabHeading, Icon, Text } from 'native-base'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import UserActions from 'App/Stores/User/Actions'
@@ -9,6 +9,7 @@ import CompleteProfile from '../Popups/CompleteProfile'
 import MainHelperScreen from './MainHelperScreen'
 import MainUserScreen from './MainUserScreen'
 import HeaderScreen from './Header/HeaderScreen'
+import { MainTab, ContactsTab, SettingsTab } from './Tabs/'
 
 class MainScreen extends React.Component {
   componentDidMount() {
@@ -26,7 +27,9 @@ class MainScreen extends React.Component {
       <View style={Style.container}>
         <Container>
           <HeaderScreen></HeaderScreen>
-          <Content>
+          <Tabs style={Style.headerTabs}>
+            <Tab heading={<TabHeading style={Style.headerTabs}><Icon name="person-outline" /><Text>Me</Text></TabHeading>}>
+              <Content>
             {this.props.userIsLoading ? (
               <ActivityIndicator size="large" color={Style.loader} />
             ) : (
@@ -47,6 +50,14 @@ class MainScreen extends React.Component {
               </View>
             )}
           </Content>
+            </Tab>
+            <Tab heading={<TabHeading style={Style.headerTabs}><Icon name="people-outline" /><Text>With Me</Text></TabHeading>}>
+              <ContactsTab />
+            </Tab>
+            <Tab heading={<TabHeading style={Style.headerTabs}><Icon name="settings" /><Text>Profile</Text></TabHeading>}>
+              <SettingsTab />
+            </Tab>
+          </Tabs>
         </Container>
       </View>
     )

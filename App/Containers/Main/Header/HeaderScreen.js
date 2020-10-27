@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header, Icon, View, Button, Body, Right, Title, Tabs, Tab, TabHeading, Text } from 'native-base'
+import { Header, Icon, Button, Body, Right, Title } from 'native-base'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import AuthActions from 'App/Stores/Auth/Actions'
@@ -29,53 +29,16 @@ class HeaderScreen extends React.Component {
       userRole = this.props.user.user_metadata.role
     }
     return (
-      <View style={Style.container}>
-        <Header style={Style['appHeader' + userRole]} hasTabs>
-          <Body>
-            <Title style={Style.appHeaderTitle}>WithMe{this.setTopText.bind(this)()}</Title>
-          </Body>
-          <Right>
-            <Button transparent onPress={() => this._onLogout()}>
-              <Icon name="log-out" />
-            </Button>
-          </Right>
-        </Header>
-        <Tabs>
-            <Tab
-              accessibilityRole="tab"
-              heading={
-                <TabHeading>
-                  <Icon name="home" />
-                  <Text>Home</Text>
-                </TabHeading>
-              }
-            >
-              <Text>TEST 1</Text>
-            </Tab>
-            <Tab
-              accessibilityRole="tab"
-              heading={
-                <TabHeading>
-                  <Icon name="people" />
-                  <Text>Contacts</Text>
-                </TabHeading>
-              }
-            >
-              <Text>TEST 2</Text>
-            </Tab>
-            <Tab
-              accessibilityRole="tab"
-              heading={
-                <TabHeading>
-                  <Icon name="settings" />
-                  <Text>Settings</Text>
-                </TabHeading>
-              }
-            >
-              <Text>TEST 3</Text>
-            </Tab>
-          </Tabs>
-      </View>
+      <Header style={Style['appHeader' + userRole]} hasTabs>
+        <Body>
+          <Title style={Style.appHeaderTitle}>WithMe{this.setTopText.bind(this)()}</Title>
+        </Body>
+        <Right>
+          <Button transparent onPress={() => this._onLogout()}>
+            <Icon name="log-out" />
+          </Button>
+        </Right>
+      </Header>
     )
   }
   _onLogout() {

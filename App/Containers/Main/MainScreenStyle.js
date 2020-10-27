@@ -75,6 +75,9 @@ export default StyleSheet.create({
     marginBottom: 5,
     textAlign: 'center',
   },
+  headerTabs: {
+    backgroundColor: Colors.complement,
+  },
   iconSync: {
     backgroundColor: Colors.error,
     borderRadius: 15,
