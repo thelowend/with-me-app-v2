@@ -3,7 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import SplashScreen from 'App/Containers/SplashScreen/SplashScreen'
 import LoginScreen from 'App/Containers/Login/LoginScreen'
 import MainScreen from 'App/Containers/Main/MainScreen'
-import ProfileScreen from 'App/Containers/Profile/ProfileScreen'
+import ProfileTab from 'App/Containers/Main/ProfileTab/ProfileTab'
 import EvaluationScreen from 'App/Containers/Evaluation/EvaluationScreen'
 import ContactScreen from 'App/Containers/Contact/ContactScreen'
 
@@ -19,7 +19,7 @@ const StackNavigator = createStackNavigator(
     SplashScreen: SplashScreen,
     LoginScreen: LoginScreen,
     MainScreen: MainScreen,
-    ProfileScreen: ProfileScreen,
+    ProfileTab: ProfileTab,
     EvaluationScreen: EvaluationScreen,
     ContactScreen: ContactScreen,
   },

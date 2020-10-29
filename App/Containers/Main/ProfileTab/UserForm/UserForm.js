@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Button, Text, Icon } from 'native-base'
+import { View, Button, Text, Icon, CardItem } from 'native-base'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import ProfileActions from 'App/Stores/Profile/Actions'
 import t from 'tcomb-form-native'
-import Style from '../ProfileScreenStyle'
+import Style from '../ProfileTabStyle'
 import NavigationService from 'App/Services/NavigationService'
 
 const Form = t.form.Form
@@ -15,7 +15,34 @@ const User = t.struct({
   contact_number: t.String,
 })
 
+let _ = require('lodash');
+
+const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
+stylesheet.fieldset = {
+  flexDirection: 'row',
+};
+stylesheet.formGroup.normal.flex = 1;
+stylesheet.formGroup.error.flex = 1;
+
+stylesheet.textbox.normal.borderWidth = 0;
+stylesheet.textbox.error.borderWidth = 0;
+stylesheet.textbox.normal.marginBottom = 0;
+stylesheet.textbox.error.marginBottom = 0;
+
+stylesheet.textboxView.normal.borderWidth = 0;
+stylesheet.textboxView.error.borderWidth = 0;
+stylesheet.textboxView.normal.borderRadius = 0;
+stylesheet.textboxView.error.borderRadius = 0;
+stylesheet.textboxView.normal.borderBottomWidth = 1;
+stylesheet.textboxView.error.borderBottomWidth = 1;
+stylesheet.textboxView.normal.marginBottom = 5;
+stylesheet.textboxView.error.marginBottom = 5;
+
+stylesheet.textboxView.normal.marginRight = 5;
+
+
 const options = {
+  stylesheet: stylesheet,
   fields: {
     name: {
       error: 'Invalid name',
@@ -47,9 +74,9 @@ class UserForm extends React.Component {
 
   render() {
     return (
-      <View>
-        <Text style={Style.subTitle}>User Profile</Text>
+      <CardItem cardBody style={Style.profileCard}>
         <Form
+          style={Style.form}
           type={User}
           ref={(c) => {
             this._form = c
@@ -60,25 +87,14 @@ class UserForm extends React.Component {
         {this.props.profileErrorMessage ? <Text>{this.props.profileErrorMessage}</Text> : null}
         <View style={Style.buttonNavigation}>
           <Button
-            style={Style.goBackButton}
-            rounded
-            iconLeft
-            onPress={() => NavigationService.navigate('MainScreen')}
-          >
-            <Icon name="arrow-back" />
-            <Text>Back</Text>
-          </Button>
-          <Button
             style={Style.commonButton}
             rounded
-            iconRight
             onPress={this.handleSubmit.bind(this)}
           >
-            <Text>Submit</Text>
-            <Icon name="arrow-forward" />
+            <Icon name="save-outline" />
           </Button>
         </View>
-      </View>
+      </CardItem>
     )
   }
 }

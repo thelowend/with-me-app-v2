@@ -4,58 +4,13 @@ import Fonts from 'App/Theme/Fonts'
 import ApplicationStyles from 'App/Theme/ApplicationStyles'
 
 export default StyleSheet.create({
-  FBButton: {
-    alignItems: 'center',
-    backgroundColor: Colors.facebook,
-    justifyContent: 'flex-start',
-    marginBottom: 5,
-    marginTop: 5,
-  },
-  FBSection: {
-    alignSelf: 'center',
-    backgroundColor: Colors.primary,
-    marginTop: 10,
-    padding: 10,
-    width: '75%',
-  },
-  SectionHeader: {
-    backgroundColor: Colors.white,
-    padding: 0,
-  },
-  SectionHeaderText: {
-    color: Colors.white,
-    textShadowColor: Colors.primaryDarker,
-    textShadowOffset: {
-      width: 1,
-      height: 1,
-    },
-    textShadowRadius: 1,
-  },
-  TWButton: {
-    alignItems: 'center',
-    backgroundColor: Colors.twitter,
-    justifyContent: 'flex-start',
-    marginBottom: 5,
-    marginTop: 5,
-  },
-  TWSection: {
-    alignSelf: 'center',
-    backgroundColor: Colors.primary,
-    padding: 10,
-    width: '75%',
-  },
-  buttonCloseSubmitModal: {
-    alignItems: 'center',
-    alignSelf: 'center',
-    backgroundColor: Colors.complement,
-    marginBottom: 15,
-    marginTop: 10,
-  },
-  commonButton: {
-    alignItems: 'center',
-    alignSelf: 'center',
-    backgroundColor: Colors.primary,
-    marginTop: 10,
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    margin: 0,
   },
   commonButtonComp: {
     alignItems: 'center',
@@ -75,8 +30,18 @@ export default StyleSheet.create({
     marginBottom: 5,
     textAlign: 'center',
   },
-  headerTabs: {
+  tabHeader: {
     backgroundColor: Colors.complement,
+  },
+  tabContent: {
+    flex: 1,
+    padding: 10,
+  },
+  roundIcon: {
+    paddingLeft: 2,
+    paddingRight: 2,
+    paddingBottom: 6,
+    paddingTop: 6,
   },
   iconSync: {
     backgroundColor: Colors.error,
@@ -142,6 +107,19 @@ export default StyleSheet.create({
     ...Fonts.style.h3,
     marginTop: 10,
     textAlign: 'center',
+  },
+  buttonCloseSubmitModal: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: Colors.complement,
+    marginBottom: 15,
+    marginTop: 10,
+  },
+  commonButton: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: Colors.primary,
+    marginTop: 10,
   },
   text: {
     ...Fonts.style.normal,

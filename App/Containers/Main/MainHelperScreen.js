@@ -20,7 +20,7 @@ class MaiHelperScreen extends React.Component {
     })
   }
   _goToProfilePage() {
-    NavigationService.navigate('ProfileScreen')
+    NavigationService.navigate('ProfileTab')
   }
   _goToUserList() {
     NavigationService.navigate('UserListScreen')

@@ -4,12 +4,17 @@ import { Container, View, Content, Tabs, Tab, TabHeading, Icon, Text } from 'nat
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import UserActions from 'App/Stores/User/Actions'
-import Style from './MainScreenStyle'
+
 import CompleteProfile from '../Popups/CompleteProfile'
+
+import HeaderScreen from './Header/HeaderScreen'
+
 import MainHelperScreen from './MainHelperScreen'
 import MainUserScreen from './MainUserScreen'
-import HeaderScreen from './Header/HeaderScreen'
-import { MainTab, ContactsTab, SettingsTab } from './Tabs/'
+import ContactsTab from './ContactsTab/ContactsTab'
+import ProfileTab from './ProfileTab/ProfileTab'
+
+import Style from './MainScreenStyle'
 
 class MainScreen extends React.Component {
   componentDidMount() {
@@ -27,37 +32,35 @@ class MainScreen extends React.Component {
       <View style={Style.container}>
         <Container>
           <HeaderScreen></HeaderScreen>
-          <Tabs style={Style.headerTabs}>
-            <Tab heading={<TabHeading style={Style.headerTabs}><Icon name="person-outline" /><Text>Me</Text></TabHeading>}>
-              <Content>
-            {this.props.userIsLoading ? (
-              <ActivityIndicator size="large" color={Style.loader} />
-            ) : (
-              <View>
-                {this.props.userErrorMessage ? (
-                  <Text style={Style.error}>{this.props.userErrorMessage}</Text>
-                ) : (
-                  <View>
-                    {this.props.user.user_metadata.profile_complete ? (
-                      <View>
-                        {this.isHelper(userRole) ? <MainHelperScreen /> : <MainUserScreen />}
-                      </View>
+          {this.props.userIsLoading ? (
+            <ActivityIndicator size="large" color={Style.loader} />
+          ) : (
+              <Tabs>
+                <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="person-outline" /><Text>Me</Text></TabHeading>}>
+                  <Content style={Style.tabContent}>
+                    {this.props.userErrorMessage ? (
+                      <Text style={Style.error}>{this.props.userErrorMessage}</Text>
                     ) : (
-                      <CompleteProfile />
-                    )}
-                  </View>
-                )}
-              </View>
+                        <View>
+                          {this.props.user.user_metadata.profile_complete ? (
+                            <View>
+                              {this.isHelper(userRole) ? <MainHelperScreen /> : <MainUserScreen />}
+                            </View>
+                          ) : (
+                              <CompleteProfile />
+                            )}
+                        </View>
+                      )}
+                  </Content>
+                </Tab>
+                <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="people-outline" /><Text>With Me</Text></TabHeading>}>
+                  <ContactsTab />
+                </Tab>
+                <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="settings" /><Text>Profile</Text></TabHeading>}>
+                  <ProfileTab />
+                </Tab>
+              </Tabs>
             )}
-          </Content>
-            </Tab>
-            <Tab heading={<TabHeading style={Style.headerTabs}><Icon name="people-outline" /><Text>With Me</Text></TabHeading>}>
-              <ContactsTab />
-            </Tab>
-            <Tab heading={<TabHeading style={Style.headerTabs}><Icon name="settings" /><Text>Profile</Text></TabHeading>}>
-              <SettingsTab />
-            </Tab>
-          </Tabs>
         </Container>
       </View>
     )

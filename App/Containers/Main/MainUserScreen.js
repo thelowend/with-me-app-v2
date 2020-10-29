@@ -1,14 +1,13 @@
 import React from 'react'
-import { Text, View, Button, Textarea, Icon, Badge, Container, Card, CardItem } from 'native-base'
+import { Text, View, Button, Textarea, Icon, Badge, Card, CardItem, Grid, Col, Row } from 'native-base'
 import { TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import Style from './MainScreenStyle'
 import TakeTest from '../Popups/TakeTest'
-import Modal from 'react-native-modal'
 import OneSignal from 'react-native-onesignal'
 import UserActions from '../../Stores/User/Actions'
-import NavigationService from 'App/Services/NavigationService'
+import LinearGradient from 'react-native-linear-gradient';
 
 class MainUserScreen extends React.Component {
   constructor(props) {
@@ -24,58 +23,20 @@ class MainUserScreen extends React.Component {
       emailWarning: true,
     }
   }
-  _goToProfilePage() {
-    NavigationService.navigate('ProfileScreen')
-  }
-  _openSubmitModal(type) {
-    this.setState({
-      modalInputText: '',
-      modalIsVisible: true,
-      modalType: type,
-    })
-  }
-  _closeSubmitModal() {
-    this.setState({
-      modalIsVisible: false,
-    })
-  }
-  _updateModalText(text) {
-    this.setState({
-      modalInputText: text,
-    })
-  }
-  _sendSocialMediaPost() {
-    this.props.sendSocialMediaPost(
-      this.props.user._id,
-      this.state.modalType,
-      this.state.modalInputText
-    )
-    console.log('SUBMITTED: ', this.state.modalInputText)
-  }
-  _submit() {
-    this._sendSocialMediaPost()
-    this._closeSubmitModal()
-  }
-  _syncWithFB(value) {
-    if (value) {
-      this.props.syncWithFb(this.props.user._id, this.props.user._id) // Temporarily we use the same id for both
-    } else {
-      this.props.unsyncWithFb(this.props.user._id, this.props.user._id)
-    }
-  }
-  _syncWithTW(value) {
-    if (value) {
-      this.props.syncWithTw(this.props.user._id, this.props.user._id)
-    } else {
-      this.props.unsyncWithTw(this.props.user._id, this.props.user._id)
-    }
+  _askForHelp() {
+    // NavigationService.navigate('ProfileTab')
   }
   _closeEmailWarning() {
     this.setState({ emailWarning: false })
   }
   render() {
+    let overallScore = this.props.user.user_metadata.overallScore || null;
+    if (overallScore) {
+      overallScore = parseFloat(overallScore.toFixed(2));
+    }
+    
     return (
-      <View>
+      <View style={Style.container}>
         {!this.props.user.email_verified && this.state.emailWarning ? (
           <TouchableOpacity onPress={this._closeEmailWarning.bind(this)}>
             <Card style={Style.warningCard}>
@@ -84,119 +45,70 @@ class MainUserScreen extends React.Component {
             </Card>
           </TouchableOpacity>
         ) : null}
+
         <Text style={Style.text}>Welcome {this.props.user.user_metadata.name}!</Text>
+
         {!this.props.user.user_metadata.threshold ? (
           <TakeTest />
         ) : (
-          <View style={Style.userScreenContainer}>
-            <Text style={Style.subTitle}>
-              Your latest evaluation: {this.props.user.user_metadata.threshold}
-            </Text>
-            <Button
-              rounded
-              iconLeft
-              onPress={this._goToProfilePage.bind(this)}
-              style={Style.commonButton}
-            >
-              <Icon name="person" />
-              <Text>Update Profile</Text>
-            </Button>
-            <Card style={Style.FBSection}>
-              <CardItem header style={Style.SectionHeader}>
-                <Text style={Style.SectionHeaderText}>Facebook Integration</Text>
-              </CardItem>
-              {this.props.user.fb_sync ? (
-                <View>
+            <View style={Style.userScreenContainer}>
+              <Grid>
+                <Row>
+                  <Text style={Style.subTitle}>
+                    Your latest evaluation: {this.props.user.user_metadata.threshold}
+                  </Text>
+                </Row>
+                <Row>
+                  <Text style={Style.subTitle}>
+                    Overall mood as of: {new Date().toISOString()}
+                  </Text>
+                </Row>
+                <Row style={{  }}>
+                  <Col size={10} style={{alignItems: 'center'}}>
+                    <View style={{borderWidth: 1, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, borderRightWidth: 0}}>
+                      <Icon style={Style.roundIcon} name="sad-outline" />
+                    </View>
+                  </Col>
+                  <Col size={100}>
+                    {overallScore ? (
+                      <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['rgba(0, 155, 0, 1)', 'rgba(200, 100, 0, 1)']} locations={[overallScore, overallScore]} style={Style.linearGradient}></LinearGradient>
+                    ) : (
+                      <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['rgba(0, 155, 0, 0)', 'rgba(200, 100, 0, 0)']} locations={[0, 0]} style={Style.linearGradient}>
+                      <Text>
+                        Not enough data to evalue yet
+                      </Text>
+                    </LinearGradient>
+                    ) }
+                  </Col>
+                  <Col size={10} style={{alignItems: 'center' }}>
+                    <View style={{borderWidth: 1, borderTopRightRadius: 5, borderBottomRightRadius: 5, borderLeftWidth: 0}}>
+                      <Icon style={Style.roundIcon} name="happy-outline" />
+                    </View>
+                  </Col>
+                </Row>
+                <Row style={{justifyContent: 'center' }}>
+                  {/* If the overall mood is low, show the ask for help button */}
                   <Button
+                    rounded
+                    iconLeft
                     small
-                    iconLeft
-                    onPress={() => this._syncWithFB(false)}
-                    style={Style.FBButton}
+                    onPress={this._askForHelp.bind(this)}
+                    style={Style.commonButton}
                   >
-                    <Icon name="sync" style={Style.iconUnSync} />
-                    <Text>Synced</Text>
+                    <Icon name="people-outline" />
+                    <Text>Ask for help</Text>
                   </Button>
-                  <Button
-                    iconLeft
-                    onPress={() => this._openSubmitModal('Facebook')}
-                    style={Style.FBButton}
-                  >
-                    <Icon name="logo-facebook" />
-                    <Text>Post</Text>
-                  </Button>
-                </View>
-              ) : (
-                <Button
-                  small
-                  iconLeft
-                  onPress={() => this._syncWithFB(true)}
-                  style={Style.FBButton}
-                >
-                  <Icon name="sync" style={Style.iconSync} />
-                  <Text>Sync</Text>
-                </Button>
-              )}
-            </Card>
-            <Card style={Style.TWSection}>
-              <CardItem header style={Style.SectionHeader}>
-                <Text style={Style.SectionHeaderText}>Twitter Integration</Text>
-              </CardItem>
-              {this.props.user.tw_sync ? (
-                <View>
-                  <Button
-                    small
-                    iconLeft
-                    onPress={() => this._syncWithTW(false)}
-                    style={Style.TWButton}
-                  >
-                    <Icon name="sync" style={Style.iconUnSync} />
-                    <Text>Synced</Text>
-                  </Button>
-                  <Button
-                    iconLeft
-                    onPress={() => this._openSubmitModal('Twitter')}
-                    style={Style.TWButton}
-                  >
-                    <Icon name="logo-twitter" />
-                    <Text>Tweet</Text>
-                  </Button>
-                </View>
-              ) : (
-                <Button small iconLeft onPress={() => this._syncWithTW(true)} style={Style.TWButton}>
-                  <Icon name="sync" style={Style.iconSync} />
-                  <Text>Sync</Text>
-                </Button>
-              )}
-            </Card>
-            <Modal isVisible={this.state.modalIsVisible}>
-              <View style={Style.submitModal}>
-                <Text style={Style.submitModalTitle}>Social Media Posting</Text>
-                <Textarea
-                  rowSpan={4}
-                  bordered
-                  placeholder="Input your toughts..."
-                  style={Style.submitModalTextArea}
-                  value={this.state.modalInputText}
-                  onChangeText={this._updateModalText.bind(this)}
-                />
-                <Button
-                  style={Style.commonButton}
-                  rounded
-                  onPress={() => this._submit(this.state.modalType)}
-                >
-                  <Text>Send to {this.state.modalType}</Text>
-                </Button>
-                <Button
-                  rounded
-                  style={Style.buttonCloseSubmitModal}
-                  onPress={this._closeSubmitModal.bind(this)}
-                >
-                  <Text>Close</Text>
-                </Button>
-              </View>
-            </Modal>
-          </View>
-        )}
+                </Row>
+                <Row>
+                  <Card>
+                    <CardItem header style={{}}>
+                      <Text style={{}}>Share your thoughts</Text>
+                    </CardItem>
+                  </Card>
+                </Row>
+              </Grid>
+            </View>
+          )}
       </View>
     )
   }
@@ -204,21 +116,12 @@ class MainUserScreen extends React.Component {
 
 MainUserScreen.propTypes = {
   user: PropTypes.object,
-  sendSocialMediaPost: PropTypes.func,
-  syncWithFb: PropTypes.func,
-  unsyncWithFb: PropTypes.func,
-  syncWithTw: PropTypes.func,
-  unsyncWithTw: PropTypes.func,
 }
 const mapStateToProps = (state) => ({
   user: state.user.user,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  syncWithFb: (id, fbId) => dispatch(UserActions.syncWithFb(id, fbId, true)),
-  unsyncWithFb: (id, fbId) => dispatch(UserActions.syncWithFb(id, fbId, false)),
-  syncWithTw: (id, twId) => dispatch(UserActions.syncWithTw(id, twId, true)),
-  unsyncWithTw: (id, twId) => dispatch(UserActions.syncWithTw(id, twId, false)),
   sendSocialMediaPost: (id, target, post) =>
     dispatch(UserActions.sendSocialMediaPost(id, target, post)),
 })

@@ -23,7 +23,7 @@ class CompleteProfile extends React.Component {
               style={Style.completeProfileButton}
               rounded
               iconLeft
-              onPress={() => NavigationService.navigate('ProfileScreen')}
+              onPress={() => NavigationService.navigate('ProfileTab')}
             >
               <Icon name="person" />
               <Text>Complete Profile Now</Text>
