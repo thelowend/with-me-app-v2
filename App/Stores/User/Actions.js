@@ -2,6 +2,7 @@ import { createActions } from 'reduxsauce'
 
 const { Types, Creators } = createActions({
   updateUserValue: ['user'],
+  askForHelp: ['id'],
   fetchUser: ['idToken'],
   fetchUserLoading: null,
   fetchUserSuccess: ['user'],
@@ -14,7 +15,7 @@ const { Types, Creators } = createActions({
   syncWithTwLoading: null,
   syncWithTwSuccess: ['user'],
   syncWithTwFailure: ['errorMessage'],
-  sendSocialMediaPost: ['id', 'target', 'post'],
+  sendFeedPost: ['id', 'target', 'post'],
   fetchContactInfo: ['id'],
   fetchContactInfoSuccess: ['contact'],
   fetchContactInfoFailure: ['errorMessage'],

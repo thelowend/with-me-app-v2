@@ -56,8 +56,8 @@ class SocialMediaCard extends React.Component {
       modalInputText: text,
     })
   }
-  _sendSocialMediaPost() {
-    this.props.sendSocialMediaPost(
+  _sendFeedPost() {
+    this.props.sendFeedPost(
       this.props.user._id,
       this.state.modalType,
       this.state.modalInputText
@@ -65,7 +65,7 @@ class SocialMediaCard extends React.Component {
     console.log('SUBMITTED: ', this.state.modalInputText);
   }
   _submit() {
-    this._sendSocialMediaPost()
+    this._sendFeedPost()
     this._closeSubmitModal()
   }
   render() {
@@ -167,7 +167,7 @@ class SocialMediaCard extends React.Component {
 
 SocialMediaCard.propTypes = {
   user: PropTypes.object,
-  sendSocialMediaPost: PropTypes.func,
+  sendFeedPost: PropTypes.func,
   syncWithFb: PropTypes.func,
   unsyncWithFb: PropTypes.func,
   syncWithTw: PropTypes.func,
@@ -183,8 +183,8 @@ const mapDispatchToProps = (dispatch) => ({
   unsyncWithFb: (id, fbId) => dispatch(UserActions.syncWithFb(id, fbId, false)),
   syncWithTw: (id, twId) => dispatch(UserActions.syncWithTw(id, twId, true)),
   unsyncWithTw: (id, twId) => dispatch(UserActions.syncWithTw(id, twId, false)),
-  sendSocialMediaPost: (id, target, post) =>
-    dispatch(UserActions.sendSocialMediaPost(id, target, post)),
+  sendFeedPost: (id, target, post) =>
+    dispatch(UserActions.sendFeedPost(id, target, post)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SocialMediaCard);

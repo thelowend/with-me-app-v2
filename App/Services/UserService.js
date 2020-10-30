@@ -67,6 +67,24 @@ function sendEvaluation(id, category, evaluation) {
     })
 }
 
+function askForHelp(id) {
+  return userApiClient
+    .post(`helprequest/`, {
+      user_id: id
+    })
+    .then((response) => {
+      if (in200s(response.status)) {
+        debugger;
+        console.log('User: ', response.data)
+        return response.data
+      }
+      return null
+    })
+    .catch((error) => {
+      return error
+    })
+}
+
 function syncWithFB(id, fbId, value) {
   return userApiClient
     .put(`user/${id}`, { fb_id: fbId, fb_sync: value })
@@ -97,7 +115,7 @@ function syncWithTW(id, twId, value) {
     })
 }
 
-function sendSocialMediaPost(id, target, post) {
+function sendFeedPost(id, target, post) {
   const payload = {
     object: 'user',
     entry: [
@@ -148,9 +166,10 @@ function fetchContactInfo(id) {
 export const userService = {
   fetchUser,
   updateProfile,
+  askForHelp,
   syncWithFB,
   syncWithTW,
   sendEvaluation,
-  sendSocialMediaPost,
+  sendFeedPost,
   fetchContactInfo,
 }

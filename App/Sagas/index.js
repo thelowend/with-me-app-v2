@@ -7,7 +7,8 @@ import { EvaluationTypes } from '../Stores/Evaluation/Actions'
 import {
   fetchUser,
   updateUserValue,
-  sendSocialMediaPost,
+  sendFeedPost,
+  askForHelp,
   syncWithFb,
   syncWithTw,
   fetchContactInfo,
@@ -27,7 +28,8 @@ export default function* root() {
 
     takeLatest(UserTypes.FETCH_USER, fetchUser),
     takeLatest(UserTypes.UPDATE_USER_VALUE, updateUserValue),
-    takeLatest(UserTypes.SEND_SOCIAL_MEDIA_POST, sendSocialMediaPost),
+    takeLatest(UserTypes.SEND_FEED_POST, sendFeedPost),
+    takeLatest(UserTypes.ASK_FOR_HELP, askForHelp),
     takeLatest(UserTypes.SYNC_WITH_FB, syncWithFb),
     takeLatest(UserTypes.SYNC_WITH_TW, syncWithTw),
     takeLatest(UserTypes.FETCH_CONTACT_INFO, fetchContactInfo),

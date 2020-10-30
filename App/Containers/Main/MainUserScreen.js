@@ -23,8 +23,19 @@ class MainUserScreen extends React.Component {
       emailWarning: true,
     }
   }
+  _sendFeedPost() {
+    /*
+    this.props.sendFeedPost(
+      this.props.user._id,
+      this.state.modalType,
+      this.state.modalInputText
+    )
+    console.log('SUBMITTED: ', this.state.modalInputText);
+    */
+  }
   _askForHelp() {
-    // NavigationService.navigate('ProfileTab')
+    debugger;
+    this.props.askForHelp(this.props.user._id)
   }
   _closeEmailWarning() {
     this.setState({ emailWarning: false })
@@ -116,14 +127,16 @@ class MainUserScreen extends React.Component {
 
 MainUserScreen.propTypes = {
   user: PropTypes.object,
+  askForHelp: PropTypes.func,
+  sendFeedPost: PropTypes.func,
 }
 const mapStateToProps = (state) => ({
   user: state.user.user,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  sendSocialMediaPost: (id, target, post) =>
-    dispatch(UserActions.sendSocialMediaPost(id, target, post)),
+  sendFeedPost: (id, target, post) => dispatch(UserActions.sendFeedPost(id, target, post)),
+  askForHelp: (id) => dispatch(UserActions.askForHelp(id)),
 })
 
 export default connect(
