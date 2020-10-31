@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Grid, Col, Row, Card, CardItem, Button, Icon, Text, Textarea } from 'native-base'
+import { View, Card, CardItem, Button, Icon, Text, Textarea } from 'native-base'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import Modal from 'react-native-modal'

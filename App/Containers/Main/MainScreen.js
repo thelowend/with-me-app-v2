@@ -24,10 +24,11 @@ class MainScreen extends React.Component {
     return profileType === 'helper'
   }
   render() {
-    let userRole = ''
+    let userRole = '';
     if (this.props.user.user_metadata) {
       userRole = this.props.user.user_metadata.role
     }
+    debugger;
     return (
       <View style={Style.container}>
         <Container>
@@ -54,7 +55,7 @@ class MainScreen extends React.Component {
                   </Content>
                 </Tab>
                 <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="people-outline" /><Text>With Me</Text></TabHeading>}>
-                  <ContactsTab />
+                  <ContactsTab contacts={this.props.user.contacts}/>
                 </Tab>
                 <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="settings" /><Text>Profile</Text></TabHeading>}>
                   <ProfileTab />

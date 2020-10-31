@@ -34,7 +34,6 @@ class MainUserScreen extends React.Component {
     */
   }
   _askForHelp() {
-    debugger;
     this.props.askForHelp(this.props.user._id)
   }
   _closeEmailWarning() {
