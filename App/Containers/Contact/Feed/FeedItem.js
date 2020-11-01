@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import { Card, CardItem, Text, Body, View, Icon } from 'native-base'
 import Style from './FeedItemStyle'
+import CardStyles from 'App/Theme/CardStyles'
 import moment from 'moment'
 
 class FeedItem extends React.Component {
@@ -23,6 +24,9 @@ class FeedItem extends React.Component {
       case 'ig':
         source = 'Instagram'
         break
+      case 'wm':
+        source = 'WithMeApp'
+        break
       default:
         source = 'Others'
         break
@@ -41,6 +45,9 @@ class FeedItem extends React.Component {
       case 'Instagram':
         icon = 'logo-instagram'
         break
+      case 'WithMeApp':
+        icon = 'person'
+        break
       default:
         icon = 'sync'
         break
@@ -54,7 +61,7 @@ class FeedItem extends React.Component {
     return (
       <View>
         <Card bordered>
-          <CardItem header style={Style[source]}>
+          <CardItem header style={Style[source], CardStyles.cardHeader}>
             <Icon name={icon} style={Style.feedIcon} />
             <Text style={Style[source + 'Text']}>
               {moment(new Date(this.props.item.datetime)).format('YYYY-MM-DD HH:mm')}

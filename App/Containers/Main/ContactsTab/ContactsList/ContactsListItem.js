@@ -1,6 +1,5 @@
 import React from 'react'
 import { ListItem, Left, Body, Button, Icon, Text, Right, Thumbnail } from 'native-base'
-import { connect } from 'react-redux'
 
 class ContactsListItem extends React.Component {
   render() {
@@ -26,11 +25,4 @@ class ContactsListItem extends React.Component {
 
 ContactsListItem.propTypes = {}
 
-const mapStateToProps = (state) => ({
-})
-
-const mapDispatchToProps = (dispatch) => ({
-
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsListItem)
+export default ContactsListItem;

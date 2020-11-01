@@ -121,6 +121,21 @@ export default StyleSheet.create({
     backgroundColor: Colors.primary,
     marginTop: 10,
   },
+  actionButton: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.complement,
+    marginVertical: 10,
+    width: '75%',
+  },
+  warningButton: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.error,
+    width: '75%',
+  },
   text: {
     ...Fonts.style.normal,
     marginBottom: 5,
@@ -133,22 +148,5 @@ export default StyleSheet.create({
   },
   userScreenContainer: {
     flex: 1,
-  },
-  warningCard: {
-    alignItems: 'center',
-    backgroundColor: Colors.complementDark,
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    marginLeft: 10,
-    marginRight: 10,
-    padding: 10,
-  },
-  warningCardIcon: {
-    paddingLeft: 5,
-    paddingRight: 10,
-    width: '10%',
-  },
-  warningCardText: {
-    width: '90%',
   },
 })

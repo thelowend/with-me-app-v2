@@ -1,0 +1,20 @@
+{
+    "welcome": ["Welcome", "!"],
+    "close": "close",
+    "share_your_toughts": "Share your thoughts",
+    "what_is_on_your_mind": "Feel free to share what is going through your mind right now",
+    "btn_ask_for_help": "Ask for help",
+    "btn_share_your_thoughts": "Share your thoughts",
+    "no_contacts_user": "If a volunteer gets in contact with you, you will see it listed here.",
+    "no_contacts_helper": "You have not been in contact with anyone yet. Once you are, they will be listed here.",
+    "been_with": "has been alongside...",
+    "with_me": ["With", "..."],
+    "email_not_verified" : "Your email has not been verified. Please check",
+    "no_help_requests": "No help requests at the moment...",
+    "refresh_help_requests": "Refresh",
+    "contact_text": [" is a ", " years old person whose mental profile has been deemed ", " who at the time of request has been writing the following: "],
+    "call_person": "Call this person",
+    "send_email": "Send Email",
+    "add_contact": "Add Contact",
+    "btn_close": "Close"
+}

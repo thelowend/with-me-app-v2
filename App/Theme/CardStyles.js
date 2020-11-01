@@ -7,6 +7,14 @@ export default {
         backgroundColor: Colors.primary,
         height: 0,
     },
+    cardHeaderUser: {
+        backgroundColor: Colors.primary,
+        height: 0,
+    },
+    cardHeaderHelper: {
+        backgroundColor: Colors.complement,
+        height: 0,
+    },
     cardHeaderText: {
         color: Colors.white,
         textShadowColor: Colors.primaryDarker,

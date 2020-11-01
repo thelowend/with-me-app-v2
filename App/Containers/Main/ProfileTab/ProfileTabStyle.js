@@ -6,6 +6,8 @@ export default StyleSheet.create({
   container: {
     ...ApplicationStyles.screen.container,
     flex: 1,
+    alignItems: 'center',
+    padding: 10,
   },
   profileCard: {
     flex: 1,

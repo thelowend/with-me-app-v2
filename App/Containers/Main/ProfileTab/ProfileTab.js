@@ -15,23 +15,25 @@ class ProfileTab extends React.Component {
   render() {
     const isUser = this.props.user.user_metadata.role === 'user';
     return (
-      <ScrollView style={Style.container}>
-        <Grid>
-          <Col>
-            {isUser && <Row style={{ justifyContent: 'center' }}><SocialMediaCard /></Row>}
-            <Row style={{ justifyContent: 'center' }}>
-              <Card style={CardStyles.card}>
-                <CardItem header style={CardStyles.cardHeader}>
-                  <Text style={CardStyles.cardHeaderText}>Profile Information</Text>
-                </CardItem>
-                <View style={CardStyles.cardContent}>
-                  {isUser ? <UserForm profile={this.props.user} /> : <HelperForm profile={this.props.user} />}
-                </View>
-              </Card>
-            </Row>
-          </Col>
-        </Grid>
-      </ScrollView>
+      <ScrollView>
+        <View style={Style.container}>
+          <Grid>
+            <Col>
+              {isUser && <Row style={{ justifyContent: 'center' }}><SocialMediaCard /></Row>}
+              <Row style={{ justifyContent: 'center' }}>
+                <Card style={CardStyles.card}>
+                  <CardItem header style={CardStyles.cardHeader}>
+                    <Text style={CardStyles.cardHeaderText}>Profile Information</Text>
+                  </CardItem>
+                  <View style={CardStyles.cardContent}>
+                    {isUser ? <UserForm profile={this.props.user} /> : <HelperForm profile={this.props.user} />}
+                  </View>
+                </Card>
+              </Row>
+            </Col>
+          </Grid>
+        </View >
+      </ScrollView >
     )
   }
 }

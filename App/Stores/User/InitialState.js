@@ -5,5 +5,10 @@ export const INITIAL_STATE = {
   syncIsLoading: false,
   syncErrorMessage: null,
   contactInfo: null,
+  contactInfoLoading: null,
   contactInfoErrorMessage: null,
+  helpRequests: [],
+  helpRequestsLoading: [],
+  helpRequestsErrorMessage: null,
+  addContactErrorMessage: null,
 }

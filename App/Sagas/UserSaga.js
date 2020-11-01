@@ -16,7 +16,6 @@ export function* fetchUser(payload) {
 }
 
 export function* askForHelp(payload) {
-  debugger;
   const res = yield call(userService.askForHelp, payload.id)
   if (!res.isAxiosError) {
     debugger;
@@ -67,6 +66,29 @@ export function* fetchContactInfo(payload) {
   } else {
     yield put(
       UserActions.fetchContactInfoFailure('There was an error while fetching contact information.')
+    )
+  }
+}
+
+export function* fetchHelpRequests() {
+  yield put(UserActions.fetchHelpRequestsLoading())
+  const helpRequests = yield call(userService.fetchHelpRequests)
+  if (!helpRequests.isAxiosError) {
+    yield put(UserActions.fetchHelpRequestsSuccess(helpRequests))
+  } else {
+    yield put(
+      UserActions.fetchHelpRequestsFailure('There was an error while fetching help requests.')
+    )
+  }
+}
+
+export function* addContact(payload) {
+  const user = yield call(userService.addContact, payload.helper_id, payload.user_id, payload.user_name)
+  if (!user.isAxiosError) {
+    yield put(UserActions.addContactSuccess(user))
+  } else {
+    yield put(
+      UserActions.addContactFailure('There was an error while adding the contact.')
     )
   }
 }

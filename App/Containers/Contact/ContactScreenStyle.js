@@ -6,11 +6,16 @@ import ApplicationStyles from 'App/Theme/ApplicationStyles'
 export default StyleSheet.create({
   container: {
     ...ApplicationStyles.screen.container,
-    margin: 30,
+    flex: 1,
+  },
+  mainContainer: {
     flex: 1,
   },
   contactContainer: {
+    marginTop: 50,
+    marginHorizontal: 20,
     flex: 1,
+    marginBottom: 50,
   },
   feedScrollView: {
     flex: 1,
@@ -19,7 +24,7 @@ export default StyleSheet.create({
     flex: 2.75,
   },
   topText: {
-    ...Fonts.style.big,
+    ...Fonts.style.medium,
     marginBottom: 10,
   },
   bottomText: {
@@ -27,11 +32,24 @@ export default StyleSheet.create({
   },
   callButton: {
     backgroundColor: Colors.complementDark,
+    width: '80%',
+    alignSelf: 'flex-end',
   },
   mailButton: {
     backgroundColor: Colors.primary,
+    width: '80%',
+    alignSelf: 'flex-end',
+  },
+  addButton: {
+    backgroundColor: Colors.complement,
+    width: '80%',
+    alignSelf: 'flex-end',
   },
   closeButton: {
+    position: 'absolute',
+    right: 5,
+    top: 5,
     backgroundColor: Colors.error,
+    height: 35,
   },
 })

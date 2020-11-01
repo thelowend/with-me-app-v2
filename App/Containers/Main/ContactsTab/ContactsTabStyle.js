@@ -6,5 +6,6 @@ export default StyleSheet.create({
     ...ApplicationStyles.screen.container,
     flex: 1,
     alignItems: 'center',
+    padding: 10,
   },
 })

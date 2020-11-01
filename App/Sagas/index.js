@@ -12,6 +12,8 @@ import {
   syncWithFb,
   syncWithTw,
   fetchContactInfo,
+  fetchHelpRequests,
+  addContact
 } from './UserSaga'
 import { fetchTest, sendEvaluation } from './EvaluationSaga'
 import { updateProfile } from './ProfileSaga'
@@ -33,6 +35,8 @@ export default function* root() {
     takeLatest(UserTypes.SYNC_WITH_FB, syncWithFb),
     takeLatest(UserTypes.SYNC_WITH_TW, syncWithTw),
     takeLatest(UserTypes.FETCH_CONTACT_INFO, fetchContactInfo),
+    takeLatest(UserTypes.FETCH_HELP_REQUESTS, fetchHelpRequests),
+    takeLatest(UserTypes.ADD_CONTACT, addContact),
 
     takeLatest(EvaluationTypes.FETCH_TEST, fetchTest),
     takeLatest(EvaluationTypes.SEND_EVALUATION, sendEvaluation),

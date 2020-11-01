@@ -61,15 +61,50 @@ export const syncWithTwFailure = (state, { errorMessage }) => ({
   syncErrorMessage: errorMessage,
 })
 
+// Contact Info
+export const fetchContactInfoLoading = (state) => ({
+  ...state,
+  contactInfoLoading: true,
+  contactInfoErrorMessage: null,
+})
 export const fetchContactInfoSuccess = (state, { contact }) => ({
   ...state,
   contactInfo: contact,
+  contactInfoLoading: false,
   contactInfoErrorMessage: null,
 })
 export const fetchContactInfoFailure = (state, { errorMessage }) => ({
   ...state,
   contactInfo: null,
+  contactInfoLoading: false,
   contactInfoErrorMessage: errorMessage,
+})
+
+// Help Requests List
+export const fetchHelpRequestsLoading = (state) => ({
+  ...state,
+  helpRequestsLoading: true,
+  helpRequestsErrorMessage: null,
+})
+export const fetchHelpRequestsSuccess = (state, { helpRequests }) => ({
+  ...state,
+  helpRequests: helpRequests,
+  helpRequestsErrorMessage: null,
+})
+export const fetchHelpRequestsFailure = (state, { errorMessage }) => ({
+  ...state,
+  helpRequests: null,
+  helpRequestsErrorMessage: errorMessage,
+})
+
+export const addContactSuccess = (state, { user }) => ({
+  ...state,
+  user: user,
+  addContactErrorMessage: null,
+})
+export const addContactFailure = (state, { errorMessage }) => ({
+  ...state,
+  addContactErrorMessage: errorMessage,
 })
 
 export const reducer = createReducer(INITIAL_STATE, {
@@ -83,6 +118,12 @@ export const reducer = createReducer(INITIAL_STATE, {
   [UserTypes.SYNC_WITH_TW_LOADING]: syncWithTwLoading,
   [UserTypes.SYNC_WITH_TW_SUCCESS]: syncWithTwSuccess,
   [UserTypes.SYNC_WITH_TW_FAILURE]: syncWithTwFailure,
+  [UserTypes.FETCH_CONTACT_INFO_LOADING]: fetchContactInfoLoading,
   [UserTypes.FETCH_CONTACT_INFO_SUCCESS]: fetchContactInfoSuccess,
   [UserTypes.FETCH_CONTACT_INFO_FAILURE]: fetchContactInfoFailure,
+  [UserTypes.FETCH_HELP_REQUESTS_LOADING]: fetchHelpRequestsLoading,
+  [UserTypes.FETCH_HELP_REQUESTS_SUCCESS]: fetchHelpRequestsSuccess,
+  [UserTypes.FETCH_HELP_REQUESTS_FAILURE]: fetchHelpRequestsFailure,
+  [UserTypes.ADD_CONTACT_SUCCESS]: addContactSuccess,
+  [UserTypes.ADD_CONTACT_FAILURE]: addContactFailure,
 })

@@ -74,7 +74,6 @@ function askForHelp(id) {
     })
     .then((response) => {
       if (in200s(response.status)) {
-        debugger;
         console.log('User: ', response.data)
         return response.data
       }
@@ -150,10 +149,43 @@ function sendFeedPost(id, target, post) {
 
 function fetchContactInfo(id) {
   return userApiClient
-    .get(`user/${id}/contact`)
+    .get(`user/${id}/metadata`)
     .then((response) => {
       if (in200s(response.status)) {
         console.log('Contact: ', response.data)
+        return response.data
+      }
+      return null
+    })
+    .catch((error) => {
+      return error
+    })
+}
+
+function fetchHelpRequests() {
+  return userApiClient
+    .get(`helprequest`)
+    .then((response) => {
+      if (in200s(response.status)) {
+        console.log('Help Requests: ', response.data)
+        return response.data
+      }
+      return null
+    })
+    .catch((error) => {
+      return error
+    })
+}
+
+function addContact(helperId, userId, userName) {
+  return userApiClient
+    .post(`user/${helperId}/contact`, {
+      userid: userId,
+      username: userName
+    })
+    .then((response) => {
+      if (in200s(response.status)) {
+        console.log('Contact Added: ', response.data)
         return response.data
       }
       return null
@@ -172,4 +204,6 @@ export const userService = {
   sendEvaluation,
   sendFeedPost,
   fetchContactInfo,
+  fetchHelpRequests,
+  addContact,
 }

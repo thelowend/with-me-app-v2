@@ -10,6 +10,9 @@ export default StyleSheet.create({
   feedIcon: {
     color: Colors.white,
   },
+  WithMeApp: {
+    backgroundColor: Colors.primary,
+  },
   Facebook: {
     backgroundColor: Colors.facebook,
   },

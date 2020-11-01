@@ -17,8 +17,16 @@ const { Types, Creators } = createActions({
   syncWithTwFailure: ['errorMessage'],
   sendFeedPost: ['id', 'target', 'post'],
   fetchContactInfo: ['id'],
+  fetchContactInfoLoading: null,
   fetchContactInfoSuccess: ['contact'],
   fetchContactInfoFailure: ['errorMessage'],
+  fetchHelpRequests: null,
+  fetchHelpRequestsLoading: null,
+  fetchHelpRequestsSuccess: ['helpRequests'],
+  fetchHelpRequestsFailure: ['errorMessage'],
+  addContact: ['helper_id', 'user_id', 'user_name'],
+  addContactSuccess: ['user'],
+  addContactFailure: ['errorMessage'],
 })
 
 export const UserTypes = Types
