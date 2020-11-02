@@ -9,9 +9,9 @@ import OneSignal from 'react-native-onesignal'
 import UserActions from '../../../../Stores/User/Actions'
 import LinearGradient from 'react-native-linear-gradient';
 import CardStyles from 'App/Theme/CardStyles';
+import { MainValues } from 'App/Assets/Values'
 
-
-import { welcome, btn_ask_for_help, btn_share_your_thoughts, what_is_on_your_mind, share_your_toughts, close } from 'App/Assets/Strings/en/text.json'
+import { welcome, latest_evaluation, overall_mood, user_actions, not_enough_data, btn_ask_for_help, btn_share_your_thoughts, what_is_on_your_mind, share_your_toughts, close, btn_send } from 'App/Assets/Strings/en/text.json'
 
 class MainUserScreen extends React.Component {
   constructor(props) {
@@ -80,15 +80,15 @@ class MainUserScreen extends React.Component {
               <Grid>
                 <Row>
                   <Text style={Style.subTitle}>
-                    Your latest evaluation: {this._getPercent(overallScore)}
+                    {latest_evaluation} {this._getPercent(overallScore)}
                   </Text>
                 </Row>
                 <Row>
                   <Text style={Style.subTitle}>
-                    Overall mood as of: {this._parseDate(new Date())}
+                    {overall_mood} {this._parseDate(new Date())}
                   </Text>
                 </Row>
-                <Row style={{}}>
+                <Row style={ {marginTop: 10}}>
                   <Col size={10} style={{ alignItems: 'center' }}>
                     <View style={{ borderWidth: 1, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, borderRightWidth: 0 }}>
                       <Icon style={Style.roundIcon} name="sad-outline" />
@@ -96,12 +96,10 @@ class MainUserScreen extends React.Component {
                   </Col>
                   <Col size={100}>
                     {overallScore ? (
-                      <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['rgba(0, 155, 0, 1)', 'rgba(200, 100, 0, 1)']} locations={[overallScore, overallScore]} style={Style.linearGradient}></LinearGradient>
+                      <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={[MainValues.COLOR.primary, MainValues.COLOR.complement]} locations={[overallScore, overallScore]} style={Style.linearGradient}></LinearGradient>
                     ) : (
                         <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['rgba(0, 155, 0, 0)', 'rgba(200, 100, 0, 0)']} locations={[0, 0]} style={Style.linearGradient}>
-                          <Text>
-                            Not enough data to evalue yet
-                      </Text>
+                          <Text>{not_enough_data}</Text>
                         </LinearGradient>
                       )}
                   </Col>
@@ -111,10 +109,10 @@ class MainUserScreen extends React.Component {
                     </View>
                   </Col>
                 </Row>
-                <Row>
+                <Row style={ {marginTop: 10}}>
                   <Card style={CardStyles.card}>
                     <CardItem header style={CardStyles.cardHeader}>
-                      <Text style={CardStyles.cardHeaderText}>User Actions</Text>
+                      <Text style={CardStyles.cardHeaderText}>{user_actions}</Text>
                     </CardItem>
                     <CardItem cardBody style={CardStyles.cardContent}>
                       <Grid>
@@ -168,7 +166,7 @@ class MainUserScreen extends React.Component {
               rounded
               onPress={() => this._submit('WithMeApp')}
             >
-              <Text>Send</Text>
+              <Text>{btn_send}</Text>
             </Button>
             <Button
               rounded

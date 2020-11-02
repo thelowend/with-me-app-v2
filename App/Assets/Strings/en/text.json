@@ -19,9 +19,6 @@
     "been_with": "has been alongside...",
     "with_me": ["With", "..."],
     "email_not_verified" : "Your email has not been verified. Please check",
-    "no_help_requests": "No help requests at the moment...",
-    "refresh_help_requests": "Refresh",
-    "helprequest_text": [" is a ", " years old person whose mental profile has been deemed ", " who at the time of request has been writing the following: "],
     "contact_text": [" is a ", " years old person whose mental profile has been deemed ", ". This is their current feed: "],
     "call_person": "Call this person",
     "send_email": "Send Email",
@@ -32,5 +29,16 @@
     "helper_not_approved": "Your profile is currently under review process. Once you are approved, you will be able to act as a helper. Thank you for your understanding.",
     "thank_you_sign_in": "Thank you for signing up to WithMeApp!",
     "complete_your_profile": "In order to start using this app, please complete your profile.",
-    "btn_complete_profile": "Complete Profile Now"
+    "btn_complete_profile": "Complete Profile Now",
+    "helprequests_no": "No help requests at the moment...",
+    "helprequests_refresh": "Refresh",
+    "helprequests_text": [" is a ", " years old person whose mental profile has been deemed ", " who at the time of request has been writing the following: "],
+    "helprequests_latest": "Latest Help Requests",
+    "helprequests_no_permissions": "You don't have permission to see help requests yet.",
+    "helprequests_no_permissions_contact": "You can't interact with the user until you are approved as a helper.",
+    "latest_evaluation": "Your latest evaluation:",
+    "overall_mood": "Overall mood as of:",
+    "not_enough_data": "Not enough data yet",
+    "user_actions": "User Actions",
+    "btn_send": "Send"
 }

@@ -17,6 +17,8 @@ const userApiClient = axios.create({
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
+  withCredentials: true,
+  auth: Config.BACKEND_AUTH,
   timeout: 3000,
 })
 

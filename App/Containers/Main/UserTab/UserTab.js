@@ -26,15 +26,15 @@ class UserTab extends React.Component {
           {this.props.userErrorMessage ? (
             <Text style={Style.error}>{this.props.userErrorMessage}</Text>
           ) : (
-              <View>
+              <>
                 {this.props.user.user_metadata.profile_complete ? (
-                  <View>
+                  <>
                     {this.isHelper(userRole) ? <MainHelperScreen /> : <MainUserScreen />}
-                  </View>
+                  </>
                 ) : (
                     <CompleteProfile />
                   )}
-              </View>
+              </>
             )}
         </View>
       </ScrollView>

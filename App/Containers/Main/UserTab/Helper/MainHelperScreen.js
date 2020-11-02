@@ -10,12 +10,14 @@ import RequestsList from './RequestsList/RequestsList'
 
 import HelperApprovedWarning from '../../Warnings/HelperApprovedWarning';
 
-import { no_help_requests, refresh_help_requests } from 'App/Assets/Strings/en/text.json'
+import { welcome, helprequests_no, helprequests_refresh, helprequests_latest, helprequests_no_permissions } from 'App/Assets/Strings/en/text.json'
 
-class MaiHelperScreen extends React.Component {
+class MainHelperScreen extends React.Component {
   constructor(props) {
     super(props)
-    OneSignal.sendTag('role', 'helper')
+    if (this.props.user.user_metadata.approved) {
+      OneSignal.sendTag('role', 'helper') // Tag user to receive notifications
+    }
   }
   componentDidMount() {
     this._fetchHelpRequests()
@@ -30,16 +32,23 @@ class MaiHelperScreen extends React.Component {
     return (
       <View>
         {!this.props.user.user_metadata.approved && <HelperApprovedWarning />}
-        <Text style={Style.text}>Welcome {this.props.user.user_metadata.name}!</Text>
+        <Text style={Style.text}>{welcome[0]} {this.props.user.user_metadata.name}{welcome[1]}</Text>
         <Card style={CardStyles.card}>
           <CardItem header style={CardStyles.cardHeaderHelper}>
-            <Text style={CardStyles.cardHeaderText}>Latest Help Requests</Text>
+            <Text style={CardStyles.cardHeaderText}>{helprequests_latest}</Text>
           </CardItem>
           <CardItem cardBody>
-            {this.props.helpRequests && this.props.helpRequests.length ?
-              <RequestsList list={this.props.helpRequests}></RequestsList> :
-              <Text style={{ padding: 10 }}>{no_help_requests}</Text>
-            }
+            {this.props.user.user_metadata.approved ? (
+              <>
+                {this.props.helpRequests && this.props.helpRequests.length ?
+                  <RequestsList list={this.props.helpRequests}></RequestsList> :
+                  <Text>{helprequests_no}</Text>
+                }
+              </>
+            ) : (
+                <Text>{helprequests_no_permissions}</Text>
+              )}
+
           </CardItem>
         </Card>
         <Button
@@ -49,14 +58,14 @@ class MaiHelperScreen extends React.Component {
           style={Style.commonButtonComp}
         >
           <Icon name="refresh-circle-outline" />
-          <Text>{refresh_help_requests}</Text>
+          <Text>{helprequests_refresh}</Text>
         </Button>
       </View>
     )
   }
 }
 
-MaiHelperScreen.propTypes = {
+MainHelperScreen.propTypes = {
   user: PropTypes.object,
   helpRequests: PropTypes.array,
   fetchHelpRequests: PropTypes.func,
@@ -73,4 +82,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MaiHelperScreen)
+)(MainHelperScreen)

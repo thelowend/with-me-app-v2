@@ -9,7 +9,7 @@ import FeedItem from './Feed/FeedItem'
 import NavigationService from 'App/Services/NavigationService'
 
 import { MainValues } from 'App/Assets/Values'
-import { helprequest_text, call_person, send_email, add_contact } from 'App/Assets/Strings/en/text.json'
+import { helprequests_text, call_person, send_email, add_contact, helprequests_no_permissions_contact } from 'App/Assets/Strings/en/text.json'
 
 class HelpRequestScreen extends React.Component {
   constructor() {
@@ -57,8 +57,8 @@ class HelpRequestScreen extends React.Component {
               <View style={Style.contactContainer}>
                 <View>
                   <Text style={Style.topText}>
-                    <Text style={Style.highlightText}>{this.props.contact.user_metadata.name}</Text>{helprequest_text[0]}{this.props.contact.user_metadata.age}{helprequest_text[1]}
-                    <Text style={ Style.highlightText, { color: MainValues.PROFILE[this.props.contact.user_metadata.mental_profile.toLowerCase()].color}}>{this.props.contact.user_metadata.mental_profile}</Text>{helprequest_text[2]}
+                    <Text style={Style.highlightText}>{this.props.contact.user_metadata.name}</Text>{helprequests_text[0]}{this.props.contact.user_metadata.age}{helprequests_text[1]}
+                    <Text style={Style.highlightText, { color: MainValues.PROFILE[this.props.contact.user_metadata.mental_profile.toLowerCase()].color }}>{this.props.contact.user_metadata.mental_profile}</Text>{helprequests_text[2]}
                   </Text>
                 </View>
                 <View style={Style.feedItems}>
@@ -66,40 +66,42 @@ class HelpRequestScreen extends React.Component {
                     {feedAtTheTimeOfRequest.map((item, key) => <FeedItem key={key} item={item} />)}
                   </ScrollView>
                 </View>
-                <View style={Style.bottomText}>
-                  <Button
-                    style={Style.callButton}
-                    iconLeft
-                    onPress={() =>
-                      // TODO: Add as contact if it isn't
-                      Linking.openURL(`tel:${this.props.contact.user_metadata.contact_number}`)
-                    }
-                  >
-                    <Icon name="call" />
-                    <Text>{call_person}</Text>
-                  </Button>
-                  <Button
-                    style={Style.mailButton}
-                    iconLeft
-                    onPress={() =>
-                      // Add as contact if it isn't
-                      Linking.openURL(
-                        `mailto:${this.props.contact.email}?subject=Help%20From%20With%20Me%20APP`
-                      )
-                    }
-                  >
-                    <Icon name="mail" />
-                    <Text>{send_email}</Text>
-                  </Button>
-                  {(this._isNotContact()) && <Button
-                    style={Style.addButton}
-                    iconLeft
-                    onPress={this._addContact.bind(this)}
-                  >
-                    <Icon name="person-add-outline" />
-                    <Text>{add_contact}</Text>
-                  </Button>}
-                </View>
+                {this.props.user.user_metadata.approved ? (
+                  <View style={Style.bottomText}>
+                    <Button
+                      style={Style.callButton}
+                      iconLeft
+                      onPress={() =>
+                        Linking.openURL(`tel:${this.props.contact.user_metadata.contact_number}`)
+                      }
+                    >
+                      <Icon name="call" />
+                      <Text>{call_person}</Text>
+                    </Button>
+                    <Button
+                      style={Style.mailButton}
+                      iconLeft
+                      onPress={() =>
+                        Linking.openURL(
+                          `mailto:${this.props.contact.email}?subject=Help%20From%20With%20Me%20APP`
+                        )
+                      }
+                    >
+                      <Icon name="mail" />
+                      <Text>{send_email}</Text>
+                    </Button>
+                    {(this._isNotContact()) && <Button
+                      style={Style.addButton}
+                      iconLeft
+                      onPress={this._addContact.bind(this)}
+                    >
+                      <Icon name="person-add-outline" />
+                      <Text>{add_contact}</Text>
+                    </Button>}
+                  </View>
+                ) : (
+                    <Text>{helprequests_no_permissions_contact}</Text>
+                  )}
               </View>
             </View>
           )}
