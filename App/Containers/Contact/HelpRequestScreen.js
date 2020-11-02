@@ -9,42 +9,61 @@ import FeedItem from './Feed/FeedItem'
 import NavigationService from 'App/Services/NavigationService'
 
 import { MainValues } from 'App/Assets/Values'
-import { contact_text, call_person, send_email, remove_contact } from 'App/Assets/Strings/en/text.json'
+import { helprequest_text, call_person, send_email, add_contact } from 'App/Assets/Strings/en/text.json'
 
-class ContactScreen extends React.Component {
-  componentDidMount() {
-    if (this.props.navigation.state.params.contact) {
-      this._fetchContactWithFeed()
+class HelpRequestScreen extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      displayAddContact: true
     }
   }
-  _fetchContactWithFeed() {
-    this.props.fetchContactWithFeed(this.props.navigation.state.params.contact.user_id)
+  componentDidMount() {
+    if (this.props.navigation.state.params.contact) {
+      this._fetchContact()
+    }
+  }
+  _fetchContact() {
+    this.props.fetchContact(this.props.navigation.state.params.contact.user_id)
+  }
+  _addContact() {
+    this.props.addContact(this.props.user._id, this.props.user.user_metadata.name, this.props.contact._id, this.props.contact.user_metadata.name);
+    this.setState({
+      displayAddContact: false
+    })
+  }
+  _isNotContact() {
+    console.log('HERE HERE');
+    return !this.props.user.contacts.find(contact => contact.user_id === this.props.contact._id);
   }
   _closeScreen() {
-    NavigationService.navigateAndReset('MainScreen', { tab: 'Contacts' })
+    NavigationService.navigateAndReset('MainScreen');
   }
   render() {
+    const feedAtTheTimeOfRequest = this.props.navigation.state.params.contact.feed;
     return (
       <View style={Style.container}>
-        {!this.props.contact.feed ? (
+        {!this.props.contact ? (
           <ActivityIndicator size="large" color="#56ABE7" />
         ) : (
             <View style={Style.mainContainer}>
               <Button
                 style={Style.closeButton}
                 iconCenter
-                onPress={this._closeScreen.bind(this)}>
+                onPress={this._closeScreen.bind(this)}
+              >
                 <Icon name="close" />
               </Button>
               <View style={Style.contactContainer}>
                 <View>
                   <Text style={Style.topText}>
-                    <Text style={Style.highlightText}>{this.props.contact.user_metadata.name}</Text>{contact_text[0]}{this.props.contact.user_metadata.age}{contact_text[1]}<Text style={ Style.highlightText, { color: MainValues.PROFILE[this.props.contact.user_metadata.mental_profile.toLowerCase()].color}}>{this.props.contact.user_metadata.mental_profile}</Text>{contact_text[2]}
+                    <Text style={Style.highlightText}>{this.props.contact.user_metadata.name}</Text>{helprequest_text[0]}{this.props.contact.user_metadata.age}{helprequest_text[1]}
+                    <Text style={ Style.highlightText, { color: MainValues.PROFILE[this.props.contact.user_metadata.mental_profile.toLowerCase()].color}}>{this.props.contact.user_metadata.mental_profile}</Text>{helprequest_text[2]}
                   </Text>
                 </View>
                 <View style={Style.feedItems}>
                   <ScrollView style={Style.feedScrollView}>
-                    {this.props.contact.feed.map((item, key) => <FeedItem key={key} item={item} />)}
+                    {feedAtTheTimeOfRequest.map((item, key) => <FeedItem key={key} item={item} />)}
                   </ScrollView>
                 </View>
                 <View style={Style.bottomText}>
@@ -52,6 +71,7 @@ class ContactScreen extends React.Component {
                     style={Style.callButton}
                     iconLeft
                     onPress={() =>
+                      // TODO: Add as contact if it isn't
                       Linking.openURL(`tel:${this.props.contact.user_metadata.contact_number}`)
                     }
                   >
@@ -62,6 +82,7 @@ class ContactScreen extends React.Component {
                     style={Style.mailButton}
                     iconLeft
                     onPress={() =>
+                      // Add as contact if it isn't
                       Linking.openURL(
                         `mailto:${this.props.contact.email}?subject=Help%20From%20With%20Me%20APP`
                       )
@@ -70,6 +91,14 @@ class ContactScreen extends React.Component {
                     <Icon name="mail" />
                     <Text>{send_email}</Text>
                   </Button>
+                  {(this._isNotContact()) && <Button
+                    style={Style.addButton}
+                    iconLeft
+                    onPress={this._addContact.bind(this)}
+                  >
+                    <Icon name="person-add-outline" />
+                    <Text>{add_contact}</Text>
+                  </Button>}
                 </View>
               </View>
             </View>
@@ -79,11 +108,13 @@ class ContactScreen extends React.Component {
   }
 }
 
-ContactScreen.propTypes = {
+HelpRequestScreen.propTypes = {
   user: PropTypes.object,
   contact: PropTypes.object,
-  fetchContactWithFeed: PropTypes.func,
-  navigation: PropTypes.object
+  fetchContact: PropTypes.func,
+  addContact: PropTypes.func,
+  navigation: PropTypes.object,
+  displayAddContact: PropTypes.bool
 }
 
 const mapStateToProps = (state) => ({
@@ -92,10 +123,11 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchContactWithFeed: (id) => dispatch(UserActions.fetchContactWithFeed(id)),
+  fetchContact: (id) => dispatch(UserActions.fetchContactInfo(id)),
+  addContact: (helperId, helpername, contactId, contactName) => dispatch(UserActions.addContact(helperId, helpername, contactId, contactName)),
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ContactScreen)
+)(HelpRequestScreen)

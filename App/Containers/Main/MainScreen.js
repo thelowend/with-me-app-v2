@@ -1,6 +1,6 @@
 import React from 'react'
 import { ActivityIndicator } from 'react-native'
-import { Container, View, Content, Tabs, Tab, TabHeading, Icon, Text } from 'native-base'
+import { Container, View, Tabs, Tab, TabHeading, Icon, Text } from 'native-base'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 
@@ -13,28 +13,50 @@ import ProfileTab from './ProfileTab/ProfileTab'
 
 import Style from './MainScreenStyle'
 
+import { tab_user, tab_contacts, tab_profile } from 'App/Assets/Strings/en/text.json'
+
+const TAB_REFERENCE = {
+  'User': 0,
+  'Contacts': 1,
+  'Profile': 2
+};
+
 class MainScreen extends React.Component {
   componentDidMount() {
+    console.log('navigationparams main', this.props.navigation.state.params);
     this._fetchUser()
+  }
+  _getCurrentPage() {
+    let currentPage = 0;
+    if (this.props.navigation.state.params && this.props.navigation.state.params.tab) {
+      currentPage = TAB_REFERENCE[this.props.navigation.state.params.tab];
+    }
+    return currentPage;
+  }
+  _userRole() {
+    return this.props.user.user_metadata.role;
+  }
+  _isProfileComplete() {
+    return this.props.user.user_metadata.profile_complete;
   }
   render() {
     return (
       <View style={Style.container}>
         <Container>
           <HeaderScreen></HeaderScreen>
-          {this.props.userIsLoading ? (
+          {!this.props.user.user_metadata || this.props.userIsLoading ? (
             <ActivityIndicator size="large" color={Style.loader} />
           ) : (
-              <Tabs>
-                <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="person-outline" /><Text>Me</Text></TabHeading>}>
+              <Tabs initialPage={this._getCurrentPage()} >
+                <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="person-outline" /><Text>{tab_user[this._userRole()]}</Text></TabHeading>}>
                   <UserTab />
                 </Tab>
-                <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="people-outline" /><Text>With Me</Text></TabHeading>}>
-                  <ContactsTab contacts={this.props.user.contacts}/>
-                </Tab>
-                <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="settings" /><Text>Profile</Text></TabHeading>}>
+                {this._isProfileComplete() && <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="people-outline" /><Text>{tab_contacts[this._userRole()]}</Text></TabHeading>}>
+                  <ContactsTab />
+                </Tab>}
+                {this._isProfileComplete() && <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="settings" /><Text>{tab_profile}</Text></TabHeading>}>
                   <ProfileTab />
-                </Tab>
+                </Tab>}
               </Tabs>
             )}
         </Container>
@@ -50,7 +72,6 @@ MainScreen.propTypes = {
   idToken: PropTypes.string,
   user: PropTypes.object,
   userIsLoading: PropTypes.bool,
-  // userErrorMessage: PropTypes.string,
   fetchUser: PropTypes.func,
 }
 
@@ -58,7 +79,6 @@ const mapStateToProps = (state) => ({
   idToken: state.auth.idToken,
   user: state.user.user,
   userIsLoading: state.user.userIsLoading,
-  //userErrorMessage: state.user.userErrorMessage,
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,4 +1,13 @@
 {
+    "tab_user": {
+        "user" : "Me",
+        "helper": "Help"
+    },
+    "tab_contacts": {
+        "user" : "With Me",
+        "helper": "Contacts"
+    },
+    "tab_profile": "Profile",
     "welcome": ["Welcome", "!"],
     "close": "close",
     "share_your_toughts": "Share your thoughts",
@@ -12,9 +21,16 @@
     "email_not_verified" : "Your email has not been verified. Please check",
     "no_help_requests": "No help requests at the moment...",
     "refresh_help_requests": "Refresh",
-    "contact_text": [" is a ", " years old person whose mental profile has been deemed ", " who at the time of request has been writing the following: "],
+    "helprequest_text": [" is a ", " years old person whose mental profile has been deemed ", " who at the time of request has been writing the following: "],
+    "contact_text": [" is a ", " years old person whose mental profile has been deemed ", ". This is their current feed: "],
     "call_person": "Call this person",
     "send_email": "Send Email",
     "add_contact": "Add Contact",
-    "btn_close": "Close"
+    "remove_contact": "Remove Contact",
+    "btn_close": "Close",
+    "profile_information": "Profile Information",
+    "helper_not_approved": "Your profile is currently under review process. Once you are approved, you will be able to act as a helper. Thank you for your understanding.",
+    "thank_you_sign_in": "Thank you for signing up to WithMeApp!",
+    "complete_your_profile": "In order to start using this app, please complete your profile.",
+    "btn_complete_profile": "Complete Profile Now"
 }

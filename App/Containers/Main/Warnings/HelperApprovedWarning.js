@@ -4,36 +4,36 @@ import { PropTypes } from 'prop-types'
 import { TouchableOpacity } from 'react-native'
 import { Text, Card, Icon } from 'native-base'
 import Style from './WarningStyle'
-import { email_not_verified } from 'App/Assets/Strings/en/text.json'
+import { helper_not_approved } from 'App/Assets/Strings/en/text.json'
 
-class EmailWarning extends React.Component {
+class HelperApprovedWarning extends React.Component {
   constructor() {
     super()
     this.state = {
-      emailWarning: true,
+      helperApprovedWarning: true,
     }
   }
   _closeWarning() {
-    this.setState({ emailWarning: false });
+    this.setState({ helperApprovedWarning: false });
   }
   render() {
-    return this.state.emailWarning && (
+    return this.state.helperApprovedWarning && (
       <TouchableOpacity onPress={this._closeWarning.bind(this)}>
         <Card style={Style.warningCard}>
           <Icon name="warning" style={Style.warningCardIcon} />
-          <Text style={Style.warningCardText}>{email_not_verified}</Text>
+          <Text style={Style.warningCardText}>{helper_not_approved}</Text>
         </Card>
       </TouchableOpacity>
     )
   }
 }
 
-EmailWarning.propTypes = {
-  emailWarning: PropTypes.bool
+HelperApprovedWarning.propTypes = {
+  helperApprovedWarning: PropTypes.bool
 }
 
 const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = (dispatch) => ({})
 
-export default connect(mapStateToProps,mapDispatchToProps)(EmailWarning)
+export default connect(mapStateToProps,mapDispatchToProps)(HelperApprovedWarning)

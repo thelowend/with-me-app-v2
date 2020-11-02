@@ -18,8 +18,7 @@ export function* fetchUser(payload) {
 export function* askForHelp(payload) {
   const res = yield call(userService.askForHelp, payload.id)
   if (!res.isAxiosError) {
-    debugger;
-    // yield put(UserActions.askForHelpSuccess())
+    // yield put(UserActions.askForHelpSuccess()) //Monstrar mensaje de ask for help success
   } else {
     // yield put(UserActions.askForHelpFailure())
   }
@@ -53,14 +52,22 @@ export function* sendFeedPost(payload) {
   const res = yield call(userService.sendFeedPost, payload.id, payload.target, payload.post)
   if (!res.isAxiosError) {
     UserActions.updateUserValue(res)
-    // yield put(UserActions.fetchUserSuccess(user))
-  } else {
-    // yield put(UserActions.fetchUserFailure('There was an error while fetching user information.'))
   }
 }
 
 export function* fetchContactInfo(payload) {
   const contact = yield call(userService.fetchContactInfo, payload.id)
+  if (!contact.isAxiosError) {
+    yield put(UserActions.fetchContactInfoSuccess(contact))
+  } else {
+    yield put(
+      UserActions.fetchContactInfoFailure('There was an error while fetching contact information.')
+    )
+  }
+}
+
+export function* fetchContactWithFeed(payload) {
+  const contact = yield call(userService.fetchContactWithFeed, payload.id)
   if (!contact.isAxiosError) {
     yield put(UserActions.fetchContactInfoSuccess(contact))
   } else {
@@ -83,7 +90,7 @@ export function* fetchHelpRequests() {
 }
 
 export function* addContact(payload) {
-  const user = yield call(userService.addContact, payload.helper_id, payload.user_id, payload.user_name)
+  const user = yield call(userService.addContact, payload.helper_id, payload.helper_name, payload.user_id, payload.user_name)
   if (!user.isAxiosError) {
     yield put(UserActions.addContactSuccess(user))
   } else {
@@ -92,3 +99,15 @@ export function* addContact(payload) {
     )
   }
 }
+
+export function* removeContact(payload) {
+  const user = yield call(userService.removeContact, payload.helper_id, payload.user_id)
+  if (!user.isAxiosError) {
+    yield put(UserActions.removeContactSuccess(user))
+  } else {
+    yield put(
+      UserActions.removeContactFailure('There was an error while removing the contact.')
+    )
+  }
+}
+

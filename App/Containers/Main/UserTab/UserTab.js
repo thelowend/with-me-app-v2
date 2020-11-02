@@ -22,7 +22,7 @@ class UserTab extends React.Component {
     return (
       <ScrollView>
         <View style={Style.container}>
-          {!this.props.user.email_verified && <EmailWarning></EmailWarning>}
+          {!this.props.user.email_verified && <EmailWarning />}
           {this.props.userErrorMessage ? (
             <Text style={Style.error}>{this.props.userErrorMessage}</Text>
           ) : (

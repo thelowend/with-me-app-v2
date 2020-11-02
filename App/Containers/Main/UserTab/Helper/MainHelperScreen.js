@@ -8,6 +8,8 @@ import UserActions from 'App/Stores/User/Actions'
 import CardStyles from 'App/Theme/CardStyles';
 import RequestsList from './RequestsList/RequestsList'
 
+import HelperApprovedWarning from '../../Warnings/HelperApprovedWarning';
+
 import { no_help_requests, refresh_help_requests } from 'App/Assets/Strings/en/text.json'
 
 class MaiHelperScreen extends React.Component {
@@ -27,6 +29,7 @@ class MaiHelperScreen extends React.Component {
   render() {
     return (
       <View>
+        {!this.props.user.user_metadata.approved && <HelperApprovedWarning />}
         <Text style={Style.text}>Welcome {this.props.user.user_metadata.name}!</Text>
         <Card style={CardStyles.card}>
           <CardItem header style={CardStyles.cardHeaderHelper}>

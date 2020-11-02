@@ -24,7 +24,7 @@ class HeaderScreen extends React.Component {
     return topText
   }
   render() {
-    let userRole = ''
+    let userRole = 'user'
     if (this.props.user.user_metadata) {
       userRole = this.props.user.user_metadata.role
     }

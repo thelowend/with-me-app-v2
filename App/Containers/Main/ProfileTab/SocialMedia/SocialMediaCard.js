@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Card, CardItem, Button, Icon, Text, Textarea } from 'native-base'
+import { View, Card, CardItem, Button, Icon, Text, Textarea, Grid, Col, Row } from 'native-base'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import Modal from 'react-native-modal'
@@ -21,23 +21,18 @@ class SocialMediaCard extends React.Component {
   }
   componentDidMount() { }
   _syncWithFB(value) {
-    alert();
-    /*
     if (value) {
       this.props.syncWithFb(this.props.user._id, this.props.user._id) // Temporarily we use the same id for both
     } else {
       this.props.unsyncWithFb(this.props.user._id, this.props.user._id)
     }
-    */
   }
   _syncWithTW(value) {
-    /*
     if (value) {
       this.props.syncWithTw(this.props.user._id, this.props.user._id)
     } else {
       this.props.unsyncWithTw(this.props.user._id, this.props.user._id)
     }
-    */
   }
   _openSubmitModal(type) {
     this.setState({
@@ -69,69 +64,64 @@ class SocialMediaCard extends React.Component {
     this._closeSubmitModal()
   }
   render() {
+    const fbSync = this.props.user.fb_sync;
+    const twSync = this.props.user.tw_sync;
     return (
       <Card style={CardStyles.card}>
         <CardItem header style={CardStyles.cardHeader}>
           <Text style={CardStyles.cardHeaderText}>Social Media</Text>
         </CardItem>
-        <CardItem cardBody style={CardStyles.cardContent}>
-        {this.props.user.fb_sync ? (
-          <View>
-            <Button
-              small
-              iconLeft
-              onPress={() => this._syncWithFB(false)}
-              style={Style.FBButton}
-            >
-              <Icon name="sync" style={Style.iconUnSync} />
-              <Text>Synced</Text>
-            </Button>
-            <Button
-              iconLeft
-              onPress={() => this._openSubmitModal('Facebook')}
-              style={Style.FBButton}
-            >
-              <Icon name="logo-facebook" />
-              <Text>Post</Text>
-            </Button>
-          </View>
-        ) : (
-            <Button
-              small
-              iconLeft
-              onPress={() => this._syncWithFB(true)}
-              style={Style.FBButton}
-            >
-              <Icon name="sync" style={Style.iconSync} />
-              <Text>Sync</Text>
-            </Button>
-          )}
-        {this.props.user.tw_sync ? (
-          <View>
-            <Button
-              small
-              iconLeft
-              onPress={() => this._syncWithTW(false)}
-              style={Style.TWButton}
-            >
-              <Icon name="sync" style={Style.iconUnSync} />
-              <Text>Synced</Text>
-            </Button>
-            <Button
-              iconLeft
-              onPress={() => this._openSubmitModal('Twitter')}
-              style={Style.TWButton}
-            >
-              <Icon name="logo-twitter" />
-              <Text>Tweet</Text>
-            </Button>
-          </View>
-        ) : (
-            <Button small iconLeft onPress={() => this._syncWithTW(true)} style={Style.TWButton}>
-              <Icon name="sync" style={Style.iconSync} />
-              <Text>Sync</Text>
-            </Button>
-          )}
+        <CardItem style={CardStyles.cardContent}>
+          <Grid>
+            <Col>
+              <Row>
+                <Button
+                  small
+                  iconLeft
+                  onPress={() => this._syncWithFB(!fbSync)}
+                  style={Style.FBButton}
+                >
+                  <Icon name="sync" style={Style[`icon${fbSync ? 'Un' : ''}Sync`]} />
+                  <Text>{fbSync ? 'Unsync' : 'Sync'}</Text>
+                </Button>
+              </Row>
+              {this.props.user.fb_sync &&
+                <Row>
+                  <Button
+                    iconLeft
+                    onPress={() => this._openSubmitModal('Facebook')}
+                    style={Style.FBButton}
+                  >
+                    <Icon name="logo-facebook" />
+                    <Text>Post</Text>
+                  </Button>
+                </Row>}
+            </Col>
+            <Col>
+            <Row>
+                <Button
+                  small
+                  iconLeft
+                  onPress={() => this._syncWithTW(!twSync)}
+                  style={Style.TWButton}
+                >
+                  <Icon name="sync" style={Style[`icon${twSync ? 'Un' : ''}Sync`]} />
+                  <Text>{twSync ? 'Unsync' : 'Sync'}</Text>
+                </Button>
+              </Row>
+              {this.props.user.tw_sync &&
+                <Row>
+                  <Button
+                    iconLeft
+                    onPress={() => this._openSubmitModal('Twitter')}
+                    style={Style.TWButton}
+                  >
+                    <Icon name="logo-twitter" />
+                    <Text>Tweet</Text>
+                  </Button>
+                </Row>}
+            </Col>
+          </Grid>
         </CardItem>
         <Modal isVisible={this.state.modalIsVisible}>
           <View style={Style.submitModal}>

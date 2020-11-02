@@ -5,7 +5,6 @@ import { PropTypes } from 'prop-types'
 import ProfileActions from 'App/Stores/Profile/Actions'
 import t from 'tcomb-form-native'
 import Style from '../ProfileTabStyle'
-import NavigationService from 'App/Services/NavigationService'
 
 const Form = t.form.Form
 
@@ -19,7 +18,7 @@ let _ = require('lodash');
 
 const stylesheet = _.cloneDeep(t.form.Form.stylesheet);
 stylesheet.fieldset = {
-  flexDirection: 'row',
+  // flexDirection: 'row',
 };
 stylesheet.formGroup.normal.flex = 1;
 stylesheet.formGroup.error.flex = 1;
@@ -74,7 +73,7 @@ class UserForm extends React.Component {
 
   render() {
     return (
-      <CardItem cardBody style={Style.profileCard}>
+      <View>
         <Form
           style={Style.form}
           type={User}
@@ -94,7 +93,7 @@ class UserForm extends React.Component {
             <Icon name="save-outline" />
           </Button>
         </View>
-      </CardItem>
+      </View>
     )
   }
 }

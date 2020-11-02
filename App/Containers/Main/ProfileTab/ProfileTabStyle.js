@@ -15,11 +15,19 @@ export default StyleSheet.create({
   },
   form: {
     width: '100%',
+    backgroundColor: 'red',
   },
   commonButton: {
     backgroundColor: Colors.primary,
     justifyContent: 'center',
     width: '45%',
+  },
+  submitButtonHelper: {
+    backgroundColor: Colors.complementDark,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: '45%',
+    marginBottom: 10,
   },
   goBackButton: {
     backgroundColor: Colors.error,

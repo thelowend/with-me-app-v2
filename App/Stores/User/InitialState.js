@@ -11,4 +11,5 @@ export const INITIAL_STATE = {
   helpRequestsLoading: [],
   helpRequestsErrorMessage: null,
   addContactErrorMessage: null,
+  removeContactErrorMessage: null,
 }

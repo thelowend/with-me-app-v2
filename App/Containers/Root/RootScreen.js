@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import NavigationService from 'App/Services/NavigationService'
 import AppNavigator from 'App/Navigators/AppNavigator'
 import { View } from 'react-native'
+import { Root } from "native-base";
 import styles from './RootScreenStyle'
 import { connect } from 'react-redux'
 import StartupActions from 'App/Stores/Startup/Actions'

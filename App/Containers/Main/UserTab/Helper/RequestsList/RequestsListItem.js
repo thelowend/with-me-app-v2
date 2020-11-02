@@ -22,7 +22,7 @@ class RequestsListItem extends React.Component {
     return moment(new Date(this.props.item.request_date)).format('YYYY-MM-DD HH:mm');
   }
   _contactUser(contact) {
-    NavigationService.navigate('ContactScreen', { contact: contact });
+    NavigationService.navigate('HelpRequestScreen', { contact: contact });
   }
   render() {
     return (

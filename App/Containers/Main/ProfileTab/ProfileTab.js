@@ -9,8 +9,9 @@ import SocialMediaCard from './SocialMedia/SocialMediaCard'
 import UserForm from './UserForm/UserForm'
 import HelperForm from './HelperForm/HelperForm'
 
+import { profile_information } from 'App/Assets/Strings/en/text.json'
+
 class ProfileTab extends React.Component {
-  componentDidMount() { }
 
   render() {
     const isUser = this.props.user.user_metadata.role === 'user';
@@ -22,8 +23,8 @@ class ProfileTab extends React.Component {
               {isUser && <Row style={{ justifyContent: 'center' }}><SocialMediaCard /></Row>}
               <Row style={{ justifyContent: 'center' }}>
                 <Card style={CardStyles.card}>
-                  <CardItem header style={CardStyles.cardHeader}>
-                    <Text style={CardStyles.cardHeaderText}>Profile Information</Text>
+                  <CardItem header style={CardStyles['cardHeader' + (isUser ? 'User' : 'Helper')] }>
+                    <Text style={CardStyles.cardHeaderText}>{ profile_information }</Text>
                   </CardItem>
                   <View style={CardStyles.cardContent}>
                     {isUser ? <UserForm profile={this.props.user} /> : <HelperForm profile={this.props.user} />}

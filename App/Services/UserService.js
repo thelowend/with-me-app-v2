@@ -162,6 +162,21 @@ function fetchContactInfo(id) {
     })
 }
 
+function fetchContactWithFeed(id) {
+  return userApiClient
+    .get(`user/${id}/feed`)
+    .then((response) => {
+      if (in200s(response.status)) {
+        console.log('Contact w/feed: ', response.data)
+        return response.data
+      }
+      return null
+    })
+    .catch((error) => {
+      return error
+    })
+}
+
 function fetchHelpRequests() {
   return userApiClient
     .get(`helprequest`)
@@ -177,15 +192,30 @@ function fetchHelpRequests() {
     })
 }
 
-function addContact(helperId, userId, userName) {
+function addContact(helperId, helperName, userId, userName) {
   return userApiClient
-    .post(`user/${helperId}/contact`, {
-      userid: userId,
-      username: userName
+    .post(`user/${helperId}/contact/${userId}`, {
+      username: userName,
+      helpername: helperName
     })
     .then((response) => {
       if (in200s(response.status)) {
         console.log('Contact Added: ', response.data)
+        return response.data
+      }
+      return null
+    })
+    .catch((error) => {
+      return error
+    })
+}
+
+function removeContact(helperId, userId) {
+  return userApiClient
+    .delete(`user/${helperId}/contact/${userId}`)
+    .then((response) => {
+      if (in200s(response.status)) {
+        console.log('Contact Removed: ', response.data)
         return response.data
       }
       return null
@@ -204,6 +234,8 @@ export const userService = {
   sendEvaluation,
   sendFeedPost,
   fetchContactInfo,
+  fetchContactWithFeed,
   fetchHelpRequests,
   addContact,
+  removeContact,
 }

@@ -27,6 +27,9 @@ export default StyleSheet.create({
     ...Fonts.style.medium,
     marginBottom: 10,
   },
+  highlightText: {
+    fontWeight: 'bold',
+  },
   bottomText: {
     marginTop: 10,
   },
@@ -42,6 +45,11 @@ export default StyleSheet.create({
   },
   addButton: {
     backgroundColor: Colors.complement,
+    width: '80%',
+    alignSelf: 'flex-end',
+  },
+  removeButton: {
+    backgroundColor: Colors.error,
     width: '80%',
     alignSelf: 'flex-end',
   },

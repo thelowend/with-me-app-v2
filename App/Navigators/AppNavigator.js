@@ -6,6 +6,8 @@ import MainScreen from 'App/Containers/Main/MainScreen'
 import ProfileTab from 'App/Containers/Main/ProfileTab/ProfileTab'
 import EvaluationScreen from 'App/Containers/Evaluation/EvaluationScreen'
 import ContactScreen from 'App/Containers/Contact/ContactScreen'
+import ContactHelperScreen from 'App/Containers/Contact/ContactHelperScreen'
+import HelpRequestScreen from 'App/Containers/Contact/HelpRequestScreen'
 
 /**
  * The root screen contains the application's navigation.
@@ -22,6 +24,8 @@ const StackNavigator = createStackNavigator(
     ProfileTab: ProfileTab,
     EvaluationScreen: EvaluationScreen,
     ContactScreen: ContactScreen,
+    ContactHelperScreen: ContactHelperScreen,
+    HelpRequestScreen: HelpRequestScreen,
   },
   {
     // By default the application will show the splash screen

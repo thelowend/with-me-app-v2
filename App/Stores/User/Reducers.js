@@ -107,6 +107,16 @@ export const addContactFailure = (state, { errorMessage }) => ({
   addContactErrorMessage: errorMessage,
 })
 
+export const removeContactSuccess = (state, { user }) => ({
+  ...state,
+  user: user,
+  removeContactErrorMessage: null,
+})
+export const removeContactFailure = (state, { errorMessage }) => ({
+  ...state,
+  removeContactErrorMessage: errorMessage,
+})
+
 export const reducer = createReducer(INITIAL_STATE, {
   [UserTypes.UPDATE_USER_VALUE]: updateUserValue,
   [UserTypes.FETCH_USER_LOADING]: fetchUserLoading,
@@ -126,4 +136,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [UserTypes.FETCH_HELP_REQUESTS_FAILURE]: fetchHelpRequestsFailure,
   [UserTypes.ADD_CONTACT_SUCCESS]: addContactSuccess,
   [UserTypes.ADD_CONTACT_FAILURE]: addContactFailure,
+  [UserTypes.REMOVE_CONTACT_SUCCESS]: removeContactSuccess,
+  [UserTypes.REMOVE_CONTACT_FAILURE]: removeContactFailure,
 })

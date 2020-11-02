@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Button, Text } from 'react-native'
+import { View, Text, Button } from 'native-base'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
 import ProfileActions from 'App/Stores/Profile/Actions'
+import Style from '../ProfileTabStyle'
 import t from 'tcomb-form-native'
 
 const Form = t.form.Form
@@ -55,7 +56,6 @@ class HelperForm extends React.Component {
   render() {
     return (
       <View>
-        <Text>Helper Profile:</Text>
         <Form
           type={User}
           ref={(c) => {
@@ -64,7 +64,7 @@ class HelperForm extends React.Component {
           options={options}
           value={this.props.profile.user_metadata}
         />
-        <Button title="Submit" onPress={this.handleSubmit.bind(this)} />
+        <Button style={Style.submitButtonHelper} onPress={this.handleSubmit.bind(this)}><Text>Submit</Text></Button>
         {this.props.profileErrorMessage ? <Text>{this.props.profileErrorMessage}</Text> : null}
       </View>
     )

@@ -17,6 +17,7 @@ const { Types, Creators } = createActions({
   syncWithTwFailure: ['errorMessage'],
   sendFeedPost: ['id', 'target', 'post'],
   fetchContactInfo: ['id'],
+  fetchContactWithFeed: ['id'],
   fetchContactInfoLoading: null,
   fetchContactInfoSuccess: ['contact'],
   fetchContactInfoFailure: ['errorMessage'],
@@ -24,9 +25,12 @@ const { Types, Creators } = createActions({
   fetchHelpRequestsLoading: null,
   fetchHelpRequestsSuccess: ['helpRequests'],
   fetchHelpRequestsFailure: ['errorMessage'],
-  addContact: ['helper_id', 'user_id', 'user_name'],
+  addContact: ['helper_id', 'helper_name', 'user_id', 'user_name'],
+  removeContact: ['helper_id', 'user_id'],
   addContactSuccess: ['user'],
   addContactFailure: ['errorMessage'],
+  removeContactSuccess: ['user'],
+  removeContactFailure: ['errorMessage'],
 })
 
 export const UserTypes = Types

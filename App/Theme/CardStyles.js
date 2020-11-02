@@ -12,7 +12,7 @@ export default {
         height: 0,
     },
     cardHeaderHelper: {
-        backgroundColor: Colors.complement,
+        backgroundColor: Colors.complementDark,
         height: 0,
     },
     cardHeaderText: {

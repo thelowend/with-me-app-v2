@@ -12,8 +12,10 @@ import {
   syncWithFb,
   syncWithTw,
   fetchContactInfo,
+  fetchContactWithFeed,
   fetchHelpRequests,
-  addContact
+  addContact,
+  removeContact
 } from './UserSaga'
 import { fetchTest, sendEvaluation } from './EvaluationSaga'
 import { updateProfile } from './ProfileSaga'
@@ -35,8 +37,10 @@ export default function* root() {
     takeLatest(UserTypes.SYNC_WITH_FB, syncWithFb),
     takeLatest(UserTypes.SYNC_WITH_TW, syncWithTw),
     takeLatest(UserTypes.FETCH_CONTACT_INFO, fetchContactInfo),
+    takeLatest(UserTypes.FETCH_CONTACT_WITH_FEED, fetchContactWithFeed),
     takeLatest(UserTypes.FETCH_HELP_REQUESTS, fetchHelpRequests),
     takeLatest(UserTypes.ADD_CONTACT, addContact),
+    takeLatest(UserTypes.REMOVE_CONTACT, removeContact),
 
     takeLatest(EvaluationTypes.FETCH_TEST, fetchTest),
     takeLatest(EvaluationTypes.SEND_EVALUATION, sendEvaluation),
