@@ -8,12 +8,8 @@ class ContactsListItem extends React.Component {
   _displayDate() {
     return moment(new Date(this.props.item.contact_date)).format('YYYY-MM-DD HH:mm');
   }
-  _contactUser(contact) {
-    if (!this.props.isUser) {
-      NavigationService.navigate('ContactScreen', { contact: contact });
-    } else {
-      NavigationService.navigate('ContactHelperScreen', { contact: contact });
-    }
+  _contactUser() {
+    NavigationService.navigateAndReset(`Contact${this.props.isUser ? 'Helper' : ''}Screen`, { contact: this.props.item });
   }
   render() {
     return (
@@ -28,7 +24,7 @@ class ContactsListItem extends React.Component {
           <Text note numberOfLines={1}>{this._displayDate()}</Text>
         </Body>
         <Right>
-          <Button style={Style.contactListButton} onPress={() => this._contactUser(this.props.item)}>
+          <Button style={Style.contactListButton} onPress={this._contactUser.bind(this)}>
             <Icon name="chatbubbles-outline" />
           </Button>
           {!this.props.isUser &&

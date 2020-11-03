@@ -29,16 +29,19 @@ class HeaderScreen extends React.Component {
       userRole = this.props.user.user_metadata.role
     }
     return (
-      <Header style={Style['appHeader' + userRole]} hasTabs>
-        <Body>
-          <Title style={Style.appHeaderTitle}>WithMe{this.setTopText.bind(this)()}</Title>
-        </Body>
-        <Right>
-          <Button transparent onPress={() => this._onLogout()}>
-            <Icon name="log-out" />
-          </Button>
-        </Right>
-      </Header>
+      <>
+        {this.props.user &&
+          <Header style={Style['appHeader' + userRole]} hasTabs>
+            <Body>
+              <Title style={Style.appHeaderTitle}>WithMe{this.setTopText.bind(this)()}</Title>
+            </Body>
+            <Right>
+              <Button transparent onPress={() => this._onLogout()}>
+                <Icon name="log-out" />
+              </Button>
+            </Right>
+          </Header>
+        }</>
     )
   }
   _onLogout() {

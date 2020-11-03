@@ -37,8 +37,11 @@ export default class App extends Component {
     //console.log('Data: ', openResult.notification.payload.additionalData)
     //console.log('isActive: ', openResult.notification.isAppInFocus)
     //console.log('openResult: ', openResult)
-    const data = openResult.notification.payload.additionalData;
-    NavigationService.navigate('HelpRequestScreen', { contact: data });
+    const contact = {
+      user_id: openResult.notification.payload.additionalData.user_id,
+      feed: JSON.parse(openResult.notification.payload.additionalData.feed)
+    };
+    NavigationService.navigate('HelpRequestScreen', { contact: contact });
   }
 
   onIds(device) {

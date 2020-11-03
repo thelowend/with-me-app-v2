@@ -9,11 +9,9 @@ import EmailWarning from '../Warnings/EmailWarning';
 
 import MainHelperScreen from './Helper/MainHelperScreen'
 import MainUserScreen from './User/MainUserScreen'
+import CompleteProfile from '../../Popups/CompleteProfile';
 
 class UserTab extends React.Component {
-  isHelper(profileType) {
-    return profileType === 'helper'
-  }
   render() {
     let userRole = '';
     if (this.props.user.user_metadata) {
@@ -29,7 +27,7 @@ class UserTab extends React.Component {
               <>
                 {this.props.user.user_metadata.profile_complete ? (
                   <>
-                    {this.isHelper(userRole) ? <MainHelperScreen /> : <MainUserScreen />}
+                    {userRole === 'helper' ? <MainHelperScreen /> : <MainUserScreen />}
                   </>
                 ) : (
                     <CompleteProfile />

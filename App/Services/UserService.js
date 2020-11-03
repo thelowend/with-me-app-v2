@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Config } from 'App/Config'
 import { is, curryN, gte } from 'ramda'
+import base64 from 'react-native-base64'
 import jwt from 'jwt-decode'
 
 axios.defaults.withCredentials = true
@@ -16,9 +17,8 @@ const userApiClient = axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    'Authorization': 'Basic ' + base64.encode(`${Config.BACKEND_AUTH.username}:${Config.BACKEND_AUTH.password}`)
   },
-  withCredentials: true,
-  auth: Config.BACKEND_AUTH,
   timeout: 3000,
 })
 

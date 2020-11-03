@@ -37,16 +37,16 @@ class MainHelperScreen extends React.Component {
           <CardItem header style={CardStyles.cardHeaderHelper}>
             <Text style={CardStyles.cardHeaderText}>{helprequests_latest}</Text>
           </CardItem>
-          <CardItem cardBody>
+          <CardItem cardBody style={CardStyles.cardBody}>
             {this.props.user.user_metadata.approved ? (
               <>
                 {this.props.helpRequests && this.props.helpRequests.length ?
                   <RequestsList list={this.props.helpRequests}></RequestsList> :
-                  <Text>{helprequests_no}</Text>
+                  <Text style={CardStyles.cardBodyText}>{helprequests_no}</Text>
                 }
               </>
             ) : (
-                <Text>{helprequests_no_permissions}</Text>
+                <Text style={CardStyles.cardBodyText} >{helprequests_no_permissions}</Text>
               )}
 
           </CardItem>

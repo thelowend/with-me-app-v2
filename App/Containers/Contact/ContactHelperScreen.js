@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActivityIndicator, ScrollView, Linking } from 'react-native'
+import { ActivityIndicator, Linking } from 'react-native'
 import { View, Text, Icon, Button } from 'native-base'
 import { connect } from 'react-redux'
 import { PropTypes } from 'prop-types'
@@ -7,7 +7,7 @@ import Style from './ContactScreenStyle'
 import UserActions from '../../Stores/User/Actions'
 import NavigationService from 'App/Services/NavigationService'
 
-import { contact_text, call_person, send_email } from 'App/Assets/Strings/en/text.json'
+import { call_person, send_email } from 'App/Assets/Strings/en/text.json'
 
 class ContactHelperScreen extends React.Component {
   componentDidMount() {
@@ -24,7 +24,7 @@ class ContactHelperScreen extends React.Component {
   render() {
     return (
       <View style={Style.container}>
-        {!this.props.contact.user_metadata ? (
+        {!this.props.contactInfo.user_metadata ? (
           <ActivityIndicator size="large" color="#56ABE7" />
         ) : (
             <View style={Style.mainContainer}>
@@ -37,7 +37,7 @@ class ContactHelperScreen extends React.Component {
               <View style={Style.contactContainer}>
                 <View>
                   <Text style={Style.topText}>
-                    <Text style={Style.highlightText}>{this.props.contact.user_metadata.name}</Text>
+                    <Text style={Style.highlightText}>{this.props.contactInfo.user_metadata.name}</Text>
                   </Text>
                 </View>
                 <View style={Style.bottomText}>
@@ -45,7 +45,7 @@ class ContactHelperScreen extends React.Component {
                     style={Style.callButton}
                     iconLeft
                     onPress={() =>
-                      Linking.openURL(`tel:${this.props.contact.user_metadata.contact_number}`)
+                      Linking.openURL(`tel:${this.props.contactInfo.user_metadata.contact_number}`)
                     }
                   >
                     <Icon name="call" />
@@ -56,7 +56,7 @@ class ContactHelperScreen extends React.Component {
                     iconLeft
                     onPress={() =>
                       Linking.openURL(
-                        `mailto:${this.props.contact.email}?subject=Help%20From%20With%20Me%20APP`
+                        `mailto:${this.props.contactInfo.email}?subject=Help%20From%20With%20Me%20APP`
                       )
                     }
                   >
@@ -73,15 +73,13 @@ class ContactHelperScreen extends React.Component {
 }
 
 ContactHelperScreen.propTypes = {
-  user: PropTypes.object,
-  contact: PropTypes.object,
+  contactInfo: PropTypes.object,
   fetchContactInfo: PropTypes.func,
   navigation: PropTypes.object
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user.user,
-  contact: state.user.contactInfo,
+  contactInfo: state.user.contactInfo,
 })
 
 const mapDispatchToProps = (dispatch) => ({

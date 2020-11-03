@@ -24,6 +24,14 @@ export default {
         },
         textShadowRadius: 1,
     },
+    cardBody: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 15,
+    },
+    cardBodyText: {
+        marginBottom: 15,
+    },
     cardContent: {
         padding: 5,
     },

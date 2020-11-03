@@ -33,7 +33,6 @@ class HelpRequestScreen extends React.Component {
     })
   }
   _isNotContact() {
-    console.log('HERE HERE');
     return !this.props.user.contacts.find(contact => contact.user_id === this.props.contact._id);
   }
   _closeScreen() {

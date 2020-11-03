@@ -37,7 +37,7 @@ class MainScreen extends React.Component {
     return this.props.user.user_metadata.role;
   }
   _isProfileComplete() {
-    return this.props.user.user_metadata.profile_complete;
+    return !!this.props.user.user_metadata.profile_complete;
   }
   render() {
     return (
@@ -54,9 +54,9 @@ class MainScreen extends React.Component {
                 {this._isProfileComplete() && <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="people-outline" /><Text>{tab_contacts[this._userRole()]}</Text></TabHeading>}>
                   <ContactsTab />
                 </Tab>}
-                {this._isProfileComplete() && <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="settings" /><Text>{tab_profile}</Text></TabHeading>}>
+                <Tab heading={<TabHeading style={Style.tabHeader}><Icon name="settings" /><Text>{tab_profile}</Text></TabHeading>}>
                   <ProfileTab />
-                </Tab>}
+                </Tab>
               </Tabs>
             )}
         </Container>
@@ -73,6 +73,7 @@ MainScreen.propTypes = {
   user: PropTypes.object,
   userIsLoading: PropTypes.bool,
   fetchUser: PropTypes.func,
+  navigation: PropTypes.object
 }
 
 const mapStateToProps = (state) => ({
