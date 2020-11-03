@@ -129,6 +129,14 @@ export default StyleSheet.create({
     marginVertical: 10,
     width: '75%',
   },
+  refreshButton: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.primary,
+    marginBottom: 10,
+    width: '75%',
+  },
   warningButton: {
     alignItems: 'center',
     alignSelf: 'center',

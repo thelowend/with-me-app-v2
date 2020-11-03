@@ -10,8 +10,9 @@ import UserActions from '../../../../Stores/User/Actions'
 import LinearGradient from 'react-native-linear-gradient';
 import CardStyles from 'App/Theme/CardStyles';
 import { MainValues } from 'App/Assets/Values'
+import NavigationService from 'App/Services/NavigationService'
 
-import { welcome, latest_evaluation, overall_mood, user_actions, not_enough_data, btn_ask_for_help, btn_share_your_thoughts, what_is_on_your_mind, share_your_toughts, close, btn_send } from 'App/Assets/Strings/en/text.json'
+import { welcome, user_refresh, latest_evaluation, overall_mood, user_actions, not_enough_data, btn_ask_for_help, btn_share_your_thoughts, what_is_on_your_mind, share_your_toughts, close, btn_send } from 'App/Assets/Strings/en/text.json'
 
 class MainUserScreen extends React.Component {
   constructor(props) {
@@ -63,7 +64,10 @@ class MainUserScreen extends React.Component {
     return this.props.user.user_metadata.threshold <= 0.6;
   }
   _getPercent(value) {
-    return (value * 100) + '%';
+    return ((1 - value) * 100) + '%';
+  }
+  _refreshUser() {
+    NavigationService.navigateAndReset('MainScreen', { tab: 'User' })
   }
   render() {
     let overallScore = this.props.user.user_metadata.overallScore || null;
@@ -88,7 +92,7 @@ class MainUserScreen extends React.Component {
                     {overall_mood} {this._parseDate(new Date())}
                   </Text>
                 </Row>
-                <Row style={ {marginTop: 10}}>
+                <Row style={{ marginTop: 10 }}>
                   <Col size={10} style={{ alignItems: 'center' }}>
                     <View style={{ borderWidth: 1, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, borderRightWidth: 0 }}>
                       <Icon style={Style.roundIcon} name="sad-outline" />
@@ -96,7 +100,7 @@ class MainUserScreen extends React.Component {
                   </Col>
                   <Col size={100}>
                     {overallScore ? (
-                      <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={[MainValues.COLOR.primary, MainValues.COLOR.complement]} locations={[overallScore, overallScore]} style={Style.linearGradient}></LinearGradient>
+                      <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={[MainValues.COLOR.primary, MainValues.COLOR.complement]} locations={[1 - overallScore, 1 - overallScore]} style={Style.linearGradient}></LinearGradient>
                     ) : (
                         <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['rgba(0, 155, 0, 0)', 'rgba(200, 100, 0, 0)']} locations={[0, 0]} style={Style.linearGradient}>
                           <Text>{not_enough_data}</Text>
@@ -109,7 +113,7 @@ class MainUserScreen extends React.Component {
                     </View>
                   </Col>
                 </Row>
-                <Row style={ {marginTop: 10}}>
+                <Row style={{ marginTop: 10 }}>
                   <Card style={CardStyles.card}>
                     <CardItem header style={CardStyles.cardHeader}>
                       <Text style={CardStyles.cardHeaderText}>{user_actions}</Text>
@@ -142,6 +146,17 @@ class MainUserScreen extends React.Component {
                               <Text>{btn_share_your_thoughts}</Text>
                             </Button>
                           </Row>
+                          <Row style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <Button
+                              rounded
+                              iconLeft
+                              small
+                              onPress={this._refreshUser.bind(this)}
+                              style={Style.refreshButton}
+                            >
+                              <Icon name="refresh-circle-outline" />
+                              <Text>{user_refresh}</Text>
+                            </Button></Row>
                         </Col>
                       </Grid>
                     </CardItem>

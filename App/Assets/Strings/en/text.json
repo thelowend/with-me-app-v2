@@ -9,6 +9,7 @@
     },
     "tab_profile": "Profile",
     "welcome": ["Welcome", "!"],
+    "user_refresh": "Refresh",
     "close": "close",
     "share_your_toughts": "Share your thoughts",
     "what_is_on_your_mind": "Feel free to share what is going through your mind right now",
@@ -38,7 +39,7 @@
     "helprequests_no_permissions_contact": "You can't interact with the user until you are approved as a helper.",
     "latest_evaluation": "Your latest evaluation:",
     "overall_mood": "Overall mood as of:",
-    "not_enough_data": "Not enough data yet",
+    "not_enough_data": "Not enough data, or it is still being processed by our servers.",
     "user_actions": "User Actions",
     "btn_send": "Send"
 }
