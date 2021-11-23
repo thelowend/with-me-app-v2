@@ -17,6 +17,8 @@ class MainHelperScreen extends React.Component {
     super(props)
     if (this.props.user.user_metadata.approved) {
       OneSignal.sendTag('role', 'helper') // Tag user to receive notifications
+    } else {
+      OneSignal.deleteTag('role', 'helper')
     }
   }
   componentDidMount() {
